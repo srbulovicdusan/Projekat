@@ -1,3 +1,4 @@
+package model;
 
 public class Zavrseno extends Stanje{
 	@Override
