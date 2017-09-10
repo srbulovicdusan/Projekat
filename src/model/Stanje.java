@@ -1,3 +1,4 @@
+package model;
 
 public abstract class Stanje {
 	private KonkretnaTura konkretnaTura;
