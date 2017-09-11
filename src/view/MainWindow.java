@@ -2,6 +2,8 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -12,13 +14,12 @@ import javax.swing.JToolBar;
 
 import model.Tura;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements ActionListener {
 
-	JButton button1;
-	JTextField txtF;
-	JTextArea txtA;
-	int buttonClicked;
+	JButton logInB;
+	JButton signUpB;
 	
+	JToolBar toolbar;
 
 	
 	public MainWindow(ArrayList<Tura> ture){ //arg ArrayList<Tura>
@@ -37,16 +38,19 @@ public class MainWindow extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Mite");
 		
-		JToolBar toolbar = new JToolBar();
+		toolbar = new JToolBar();
 		toolbar.setRollover(true);
 		
-		JButton logInB = new JButton("LogIn");
-		JButton signUpB = new JButton("SignUp");
+		logInB = new JButton("LogIn");
+		signUpB = new JButton("SignUp");
 		toolbar.add(logInB);
 		toolbar.add(signUpB);
 		toolbar.addSeparator();
 		this.add(toolbar,BorderLayout.NORTH);
 	    
+		logInB.addActionListener(this);
+		signUpB.addActionListener(this);
+		
 		this.addFilterPanel();
 		this.addTuraPanel(ture);
 		this.setVisible(true);
@@ -60,5 +64,13 @@ public class MainWindow extends JFrame {
 	public void addTuraPanel(ArrayList<Tura> ture){ //arg ArrayList<Tura>
 		TuraPanel turaPanel = new TuraPanel(ture);
 		this.add(turaPanel, BorderLayout.CENTER);
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == logInB){
+			LogIn logInWindow = new LogIn();
+		}else if(e.getSource() == signUpB){
+			SignUp signUpWindow = new SignUp();
+		}
 	}
 }

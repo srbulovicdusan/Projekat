@@ -1,5 +1,6 @@
 package view;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,7 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
-public class LogIn {
+public class LogIn extends JFrame implements ActionListener {
 
 	private JFrame frmLogin;
 	private JTextField textField;
@@ -53,5 +54,16 @@ public class LogIn {
 		frmLogin.getContentPane().add(btnLogin);
 		
 		frmLogin.setVisible(true);
+		
+		btnLogin.addActionListener(this);
+		
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//TODO
+		
+	}
+	
+	
 }
