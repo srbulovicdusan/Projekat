@@ -5,7 +5,15 @@ public abstract class Osoba {
    private String ime;
    private String prezime;
    public Korisnik korisnik;
-   public String getIme() {
+   
+   
+   
+   public Osoba(String ime, String prezime) {
+	super();
+	this.ime = ime;
+	this.prezime = prezime;
+}
+public String getIme() {
 	return ime;
    }
    public void setIme(String ime) {

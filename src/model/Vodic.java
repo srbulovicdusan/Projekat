@@ -2,6 +2,10 @@ package model;
 import java.util.ArrayList;
 
 public class Vodic extends Osoba{
+	
+	public Vodic(String ime, String prezime) {
+		super(ime, prezime);
+	}
 	public ArrayList<Tura> ture;
 	
 	public Tura napraviTuru(){

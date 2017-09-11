@@ -12,6 +12,15 @@ public class Korisnik {
 	      // TODO: implement
 	}
 	
+	public Korisnik(String korisnickoIme, String lozinka, String email, String slika, Osoba osoba) {
+		super();
+		this.korisnickoIme = korisnickoIme;
+		this.lozinka = lozinka;
+		this.email = email;
+		this.slika = slika;
+		this.osoba = osoba;
+	}
+
 	public String getKorisnickoIme() {
 		return korisnickoIme;
 	}

@@ -16,7 +16,7 @@ import javax.swing.JToolBar;
 import model.Korisnik;
 import model.Tura;
 
-public class MainWindow extends JFrame implements ActionListener {
+public class MainWindow extends JFrame {
 
 
 	JButton logInB;
@@ -54,8 +54,8 @@ public class MainWindow extends JFrame implements ActionListener {
 		toolbar.addSeparator();
 		this.add(toolbar,BorderLayout.NORTH);
 	    
-		logInB.addActionListener(this);
-		signUpB.addActionListener(this);
+		//logInB.addActionListener(this);
+		//signUpB.addActionListener(this);
 		
 		this.addFilterPanel();
 		this.addTuraPanel(ture);
@@ -82,12 +82,11 @@ public class MainWindow extends JFrame implements ActionListener {
 		ProfilPanel profilPanel = new ProfilPanel(k);
 		this.add(profilPanel, BorderLayout.EAST);
 	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == logInB){
-			LogIn logInWindow = new LogIn();
-		}else if(e.getSource() == signUpB){
-			SignUp signUpWindow = new SignUp();
-		}
+	public void addLoginListener(ActionListener al){
+		this.logInB.addActionListener(al);
 	}
+	public void addSignListener(ActionListener al){
+		this.signUpB.addActionListener(al);
+	}
+
 }
