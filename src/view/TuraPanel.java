@@ -10,9 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import model.Tura;
-public class TuraPanel extends JPanel{
 
-	
+public class TuraPanel extends JPanel{	
 	
 	public TuraPanel(ArrayList<Tura> ture){ //arg ArrayList<Tura>
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
