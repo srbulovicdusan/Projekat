@@ -8,18 +8,24 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
+import model.Korisnik;
 import model.Tura;
 
 public class MainWindow extends JFrame implements ActionListener {
+
 
 	JButton logInB;
 	JButton signUpB;
 	
 	JToolBar toolbar;
+
+
+	Korisnik k;
 
 	
 	public MainWindow(ArrayList<Tura> ture){ //arg ArrayList<Tura>
@@ -53,6 +59,10 @@ public class MainWindow extends JFrame implements ActionListener {
 		
 		this.addFilterPanel();
 		this.addTuraPanel(ture);
+		//If loged in
+		this.addProfilePanel(k);
+		
+		
 		this.setVisible(true);
 		
 	}
@@ -63,7 +73,14 @@ public class MainWindow extends JFrame implements ActionListener {
 	
 	public void addTuraPanel(ArrayList<Tura> ture){ //arg ArrayList<Tura>
 		TuraPanel turaPanel = new TuraPanel(ture);
-		this.add(turaPanel, BorderLayout.CENTER);
+		 JScrollPane scrollPane = new JScrollPane(turaPanel);
+		 this.add(scrollPane,BorderLayout.CENTER);
+		//this.add(turaPanel, BorderLayout.CENTER);
+		
+	}
+	public void addProfilePanel(Korisnik k){
+		ProfilPanel profilPanel = new ProfilPanel(k);
+		this.add(profilPanel, BorderLayout.EAST);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
