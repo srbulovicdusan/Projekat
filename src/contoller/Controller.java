@@ -134,6 +134,7 @@ public class Controller {
 			
 			mainWindow.getTrenutniKorisnik().setKorisnickoIme(changeProfileGui.getUserNameField().getText());
 			mainWindow.getTrenutniKorisnik().setEmail(changeProfileGui.getEmailField().getText());
+			mainWindow.getTrenutniKorisnik().setLozinka(changeProfileGui.getPasswordField().getText());
 			mainWindow.getTrenutniKorisnik().getOsoba().setIme(changeProfileGui.getNameField().getText());
 			mainWindow.getTrenutniKorisnik().getOsoba().setPrezime(changeProfileGui.getLastNameField().getText());
 			mainWindow.remove(mainWindow.getProfilePanel());
