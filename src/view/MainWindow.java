@@ -2,15 +2,12 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import model.Korisnik;
@@ -21,13 +18,20 @@ public class MainWindow extends JFrame {
 
 	JButton logInB;
 	JButton signUpB;
-	
+
 	JToolBar toolbar;
+	private ProfilPanel profilePanel;
 
-
-	Korisnik k;
+	private Korisnik trenutniKorisnik;
 
 	
+
+	public ProfilPanel getProfilePanel() {
+		return profilePanel;
+	}
+	public void setProfilePanel(ProfilPanel profilePanel) {
+		this.profilePanel = profilePanel;
+	}
 	public MainWindow(ArrayList<Tura> ture){ //arg ArrayList<Tura>
 		
 		//this.setLocationRelativeTo(null);//centrira u odnosu na ekran
@@ -53,14 +57,14 @@ public class MainWindow extends JFrame {
 		toolbar.add(signUpB);
 		toolbar.addSeparator();
 		this.add(toolbar,BorderLayout.NORTH);
-	    
-		//logInB.addActionListener(this);
-		//signUpB.addActionListener(this);
+
 		
 		this.addFilterPanel();
 		this.addTuraPanel(ture);
-		//If loged in
-		this.addProfilePanel(k);
+		
+		//creating empty profile panel
+		this.profilePanel = new ProfilPanel();
+		this.add(this.profilePanel, BorderLayout.EAST);
 		
 		
 		this.setVisible(true);
@@ -79,8 +83,13 @@ public class MainWindow extends JFrame {
 		
 	}
 	public void addProfilePanel(Korisnik k){
-		ProfilPanel profilPanel = new ProfilPanel(k);
-		this.add(profilPanel, BorderLayout.EAST);
+		ProfilPanel newProfilPanel = new ProfilPanel(k);
+		//dodato
+		this.remove(profilePanel);
+		this.profilePanel = newProfilPanel;
+		//
+		
+		this.add(newProfilPanel, BorderLayout.EAST);
 	}
 	public void addLoginListener(ActionListener al){
 		this.logInB.addActionListener(al);
@@ -88,5 +97,13 @@ public class MainWindow extends JFrame {
 	public void addSignListener(ActionListener al){
 		this.signUpB.addActionListener(al);
 	}
+	public Korisnik getTrenutniKorisnik() {
+		return trenutniKorisnik;
+	}
+	public void setTrenutniKorisnik(Korisnik trenutniKorisnik) {
+		this.trenutniKorisnik = trenutniKorisnik;
+	}
+	
+
 
 }

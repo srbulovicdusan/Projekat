@@ -1,15 +1,15 @@
 package view;
-import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -22,30 +22,45 @@ public class ProfilPanel extends JPanel{
 		JLabel slLabel;
 		BufferedImage slika;
 		JTextArea opis;
-		
+		JButton changeProfile;
 	public ProfilPanel(Korisnik k){//arg Korisnik k
+
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBorder(BorderFactory.createEmptyBorder(0,10,30,20));
-		imeLabel = new JLabel("Joca Loptica"); //k.getOsoba().getIme() + " " + k.getOsoba().getPrezime()
+		imeLabel = new JLabel(k.getOsoba().getIme() + " "  + k.getOsoba().getPrezime()); //k.getOsoba().getIme() + " " + k.getOsoba().getPrezime()
+		if (k.getSlika() == null){
+			k.setSlika("res/slika3.png"); //set default picture
+		}
 	    try {
-			slika = ImageIO.read(new File("res/slika1.jpg"));
-		} catch (IOException e) {
+			//slika = ImageIO.read(new File(k.getSlika()));
+	        ImageIcon ii = new ImageIcon(k.getSlika());//path to image
+	        slika = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
+	        Graphics2D g2d = (Graphics2D) slika.createGraphics();
+	        g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY));
+	        g2d.drawImage(ii.getImage(), 0, 0, 200, 200, null);
+		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("aaa");
 		}
 		slLabel = new JLabel(new ImageIcon(slika));
-		opis = new JTextArea("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-		opis.setLineWrap(true);
-		opis.setEditable(false);
-		opis.setBackground(getBackground());
-		
+		changeProfile = new JButton("Change profile");
 	    this.add(slLabel);
 	    this.add(Box.createRigidArea(new Dimension(0,50)));
 	    this.add(imeLabel);
 	    this.add(Box.createRigidArea(new Dimension(0,50)));
-	    this.add(opis);
-	    this.add(Box.createRigidArea(new Dimension(0,50)));
+	    this.add(changeProfile);
+	    changeProfile.setAlignmentX(CENTER_ALIGNMENT);
 	    slLabel.setAlignmentX(CENTER_ALIGNMENT);
 	    imeLabel.setAlignmentX(CENTER_ALIGNMENT);
-	    opis.setAlignmentX(CENTER_ALIGNMENT);
+	    
+	}
+	//creating empty profile panel
+	public ProfilPanel(){
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.setBorder(BorderFactory.createEmptyBorder(0,10,30,220));
+		
+	}
+	public void addChangeButtonListener(ActionListener al){
+		this.changeProfile.addActionListener(al);
 	}
 }

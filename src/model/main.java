@@ -7,7 +7,7 @@ public class main {
 
 		Application app = new Application();
 		
-		Korisnik k = new Korisnik("p" , "k" , "email", "a", new Vodic("Petar", "Petrovic"));
+		Korisnik k = new Korisnik("p" , "k" , "email", null, new Vodic("Petar", "Petrovic"));
 		app.addKorisnik(k);
 		MainWindow mainW = new MainWindow(app.getTure());
 		Controller controller = new Controller(mainW, app);
