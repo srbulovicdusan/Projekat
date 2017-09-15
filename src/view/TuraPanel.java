@@ -18,11 +18,17 @@ public class TuraPanel extends JPanel{
 		this.setBorder(BorderFactory.createEmptyBorder(50, 20, 0, 0));
 		this.setBackground(Color.white);
 			    
-	    this.addTura(ture);
+	    this.addTureGui(ture);
 		
 	}
+	/*
+	public void addTura(Tura t){
+			TuraGui turaGui = new TuraGui(t);
+			this.add(turaGui);
+		    this.add(Box.createRigidArea(new Dimension(0,100)));
+	}*/
 	
-	public void addTura(ArrayList<Tura> ture){ // arg ArrayList<Tura>
+	public void addTureGui(ArrayList<Tura> ture){ // arg ArrayList<Tura>
 
 		/* Kada budu bile napravljene ture, samo ova for petlja ce stojati
 		for(Tura t : ture){

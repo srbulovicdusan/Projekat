@@ -9,6 +9,8 @@ public class Application {
 
 	public Application(){
 		korisnici = new ArrayList<Korisnik>();
+		ture = new ArrayList<Tura>();
+		osobe = new ArrayList<Osoba>();
 	}
 	public ArrayList<Korisnik> getKorisnici() {
 		return korisnici;
@@ -39,4 +41,18 @@ public class Application {
 		}
 		return false;
 	}
+	
+	public void addTour(Tura tura) {
+		ture.add(tura);
+	}
+	
+	public boolean checkTourName(String name){
+		for(Tura t : ture){
+			if(t.getNaziv().compareToIgnoreCase(name) == 0){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }
