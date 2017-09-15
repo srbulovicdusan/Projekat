@@ -50,7 +50,7 @@ public class LogIn extends JFrame {
 		btnLogin = new JButton("LogIn");
 		btnLogin.setBounds(166, 184, 94, 36);
 		this.getContentPane().add(btnLogin);
-		
+		this.getRootPane().setDefaultButton(btnLogin);
 		this.setVisible(true);
 		
 	}

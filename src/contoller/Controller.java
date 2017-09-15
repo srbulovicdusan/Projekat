@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import model.Application;
@@ -256,6 +256,44 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			qw.setVisible(false);
 		}
+		
+	}
+	
+	
+	class FilterSearchButton implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			ArrayList<Tura> searchResults = new ArrayList<Tura>();
+			String searchTextMesto = mainWindow.getFilterPanel().getMestoTxt().getText();
+			String searchTextNaziv = mainWindow.getFilterPanel().getNazivTureTxt().getText();
+			
+			for (Tura tura : application.getTure()) {
+				searchResults.add(tura);
+			}
+			
+			// remove from results if the city doesn't match
+			if(!searchTextMesto.isEmpty()) {
+				for (Tura tura : searchResults) {
+					if (!searchTextMesto.equalsIgnoreCase(tura.getGrad())) {
+						searchResults.remove(tura);
+					}
+				}
+			}
+			
+			// remove from results if tour name doesn't match
+			if (!searchTextNaziv.isEmpty()) {
+				for (Tura tura : searchResults) {
+					if (!searchTextNaziv.equalsIgnoreCase(tura.getNaziv())) {
+						searchResults.remove(tura);
+					}
+				}
+			}
+			
+			mainWindow.addTuraPanel(searchResults);
+			
+		}
+		
 		
 	}
 	

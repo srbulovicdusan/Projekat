@@ -139,6 +139,7 @@ public class SignUp extends JFrame{
 		
 		btnSignup = new JButton("SignUp");
 		btnSignup.setBounds(258, 190, 98, 43);
+		this.getRootPane().setDefaultButton(btnSignup);
 		this.getContentPane().add(btnSignup);
 		
 		rdbtnGuide = new JRadioButton("Guide");
