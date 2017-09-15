@@ -3,14 +3,13 @@ package contoller;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageFilter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -200,6 +199,7 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			generalTourWindow = new KreiranjeOpsteTureGui();
 			generalTourWindow.addCreateButtonListener(new CreateGenTourBtnListener());
+			generalTourWindow.addPictureButtonListener(new SetPictureBtnListener());
 		}
 	}
 	
@@ -220,10 +220,15 @@ public class Controller {
 				Tura tura = new Tura(null,
 						generalTourWindow.getTextAreaDesc().getText(),
 						generalTourWindow.getCityField().getText(),
-						generalTourWindow.getNameField().getText(),
+						generalTourWindow.getNameField().getText(), generalTourWindow.getTura().getSlika(),
 						null, null);
+				generalTourWindow.setTura(tura);
+				Vodic v  = (Vodic) mainWindow.getTrenutniKorisnik().getOsoba();
+				v.addTura(tura);
 				application.addTour(tura);
-				TuraPanel turaPanel = new TuraPanel(application.getTure());
+				mainWindow.getTuraPanel().addTura(tura);
+				
+				//SwingUtilities.updateComponentTreeUI(mainWindow.getScrollPanel());
 				
 				generalTourWindow.setVisible(false);
 				qw = new QuestionWindow();
@@ -260,6 +265,38 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			qw.setVisible(false);
+		}
+		
+	}
+	class SetPictureBtnListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			JFileChooser fc = new JFileChooser();
+			FileFilter imageFilter = new FileNameExtensionFilter(
+				    "Image files", ImageIO.getReaderFileSuffixes());
+			fc.setFileFilter(imageFilter);
+			//fc.addChoosableFileFilter(new ImageFilter());
+            int result = fc.showOpenDialog(null);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                File dest = new File("res/" + file.getName());
+                try {
+                	if (!dest.exists()){
+                		Files.copy(file.toPath(), dest.toPath());
+                	}
+					generalTourWindow.getTura().setSlika("res/" + file.getName());
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }
+            //refresuj sliku
+            generalTourWindow.setPicture(generalTourWindow.getTura());
+            //changeProfileGui.changeImage(mainWindow.getTrenutniKorisnik());
+			//SwingUtilities.updateComponentTreeUI(changeProfileGui);
+			
 		}
 		
 	}

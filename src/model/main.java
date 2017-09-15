@@ -18,7 +18,7 @@ public class main {
 		KonkretnaTura kt = new KonkretnaTura();
 		
 		Korisnik k = new Korisnik("p" , "k" , "email", null, new Vodic("Petar", "Petrovic"));
-		Tura t = new Tura(ocene, "fdfd", "fds", "dsf", new ArrayList<String>(Arrays.asList("vg", "fjg")),
+		Tura t = new Tura(ocene, "fdfd", "fds", "dsf", null, new ArrayList<String>(Arrays.asList("vg", "fjg")),
 				new ArrayList<KonkretnaTura>(Arrays.asList(kt)));
 		
 		app.addKorisnik(k);

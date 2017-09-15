@@ -21,11 +21,18 @@ public class MainWindow extends JFrame {
 
 	JToolBar toolbar;
 	private ProfilPanel profilePanel;
-
+	private JScrollPane scrollPanel;
+	private TuraPanel turaPanel;
 	private Korisnik trenutniKorisnik;
 
 	
 
+	public JScrollPane getScrollPanel() {
+		return scrollPanel;
+	}
+	public void setScrollPanel(JScrollPane scrollPanel) {
+		this.scrollPanel = scrollPanel;
+	}
 	public ProfilPanel getProfilePanel() {
 		return profilePanel;
 	}
@@ -76,11 +83,18 @@ public class MainWindow extends JFrame {
 	}
 	
 	public void addTuraPanel(ArrayList<Tura> ture){ //arg ArrayList<Tura>
-		TuraPanel turaPanel = new TuraPanel(ture);
-		 JScrollPane scrollPane = new JScrollPane(turaPanel);
-		 this.add(scrollPane,BorderLayout.CENTER);
+		turaPanel = new TuraPanel(ture);
+		scrollPanel = new JScrollPane(turaPanel);
+		this.add(scrollPanel,BorderLayout.CENTER);
 		//this.add(turaPanel, BorderLayout.CENTER);
 		
+	}
+	
+	public TuraPanel getTuraPanel() {
+		return turaPanel;
+	}
+	public void setTuraPanel(TuraPanel turaPanel) {
+		this.turaPanel = turaPanel;
 	}
 	public void addProfilePanel(Korisnik k){
 		ProfilPanel newProfilPanel = new ProfilPanel(k);
