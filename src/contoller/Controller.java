@@ -10,25 +10,35 @@ import java.nio.file.Files;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.Application;
 import model.Korisnik;
+import model.Tura;
 import model.Turista;
 import model.Vodic;
 import view.ChangeProfileGui;
+import view.KreiranjeKonkretneTureGui;
+import view.KreiranjeOpsteTureGui;
 import view.LogIn;
 import view.MainWindow;
 import view.ProfilPanel;
+import view.QuestionWindow;
 import view.SignUp;
+import view.TuraPanel;
+
 public class Controller {
 	private MainWindow mainWindow; //viewer
 	private LogIn logIn;
 	private SignUp signUp;
 	private ChangeProfileGui changeProfileGui;
 	private Application application; //model
+	private KreiranjeOpsteTureGui generalTourWindow;
+	private KreiranjeKonkretneTureGui specificTourWindow;
+	private QuestionWindow qw;
 	
 	public Controller(MainWindow mainWindow, Application application){
 		this.mainWindow = mainWindow;
@@ -66,6 +76,8 @@ public class Controller {
 						mainWindow.setTrenutniKorisnik(k);
 						mainWindow.addProfilePanel(k);
 						mainWindow.getProfilePanel().addChangeButtonListener(new ChangeProfileListener());// dodaj listener za dugme "change profile"
+						mainWindow.getProfilePanel().addCreateGenTourButtonListener(new CreateGeneralTourListener());
+						mainWindow.getProfilePanel().addCreateSpecTourButtonListener(new CreateSpecificTourListener());
 						SwingUtilities.updateComponentTreeUI(mainWindow);
 						logIn.setVisible(false);
 						return;
@@ -179,9 +191,79 @@ public class Controller {
             changeProfileGui.changeImage(mainWindow.getTrenutniKorisnik());
 			SwingUtilities.updateComponentTreeUI(changeProfileGui);
         }
+	}
+	
+	//prozor za formiranje opste ture
+	class CreateGeneralTourListener implements ActionListener{
 
-			
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			generalTourWindow = new KreiranjeOpsteTureGui();
+			generalTourWindow.addCreateButtonListener(new CreateGenTourBtnListener());
+		}
+	}
+	
+	//dugme za kreiranje opste ture
+		class CreateGenTourBtnListener implements ActionListener{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//TODO cuvanje nove opste ture
+				if(generalTourWindow.checkEmptyFields()){
+					generalTourWindow.displayFieldErrorMessage();
+					return;
+				}
+				if(application.checkTourName(generalTourWindow.getNameField().getText())){
+					generalTourWindow.displayNameErrorMessage();
+					return;
+				}
+				Tura tura = new Tura(null,
+						generalTourWindow.getTextAreaDesc().getText(),
+						generalTourWindow.getCityField().getText(),
+						generalTourWindow.getNameField().getText(),
+						null, null);
+				application.addTour(tura);
+				TuraPanel turaPanel = new TuraPanel(application.getTure());
+				
+				generalTourWindow.setVisible(false);
+				qw = new QuestionWindow();
+				qw.addYesButtonListener(new CreateSpecificTourListener());
+				qw.addNoButtonListener(new CreateNoBtnListener());
+			}
+		}
 		
+		
+	//prozor za formiranje konkretne ture
+	class CreateSpecificTourListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			qw.setVisible(false);
+			specificTourWindow = new KreiranjeKonkretneTureGui();
+			specificTourWindow.addbtnCreateSpecTourListener(new CreateSpecTourBtnListener());
+		}
+	}
+	
+	class CreateSpecTourBtnListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			//cuvanje nove konkretne ture
+			
+			specificTourWindow.setVisible(false);
+		}	
+	}
+	
+	class CreateNoBtnListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			qw.setVisible(false);
+		}
 		
 	}
+	
+	
+	
 }

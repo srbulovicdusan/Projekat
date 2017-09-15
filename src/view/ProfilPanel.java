@@ -23,6 +23,9 @@ public class ProfilPanel extends JPanel{
 		BufferedImage slika;
 		JTextArea opis;
 		JButton changeProfile;
+		JButton createGeneralTour;
+		JButton createSpecificTour;
+		
 	public ProfilPanel(Korisnik k){//arg Korisnik k
 
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -44,11 +47,19 @@ public class ProfilPanel extends JPanel{
 		}
 		slLabel = new JLabel(new ImageIcon(slika));
 		changeProfile = new JButton("Change profile");
+		createGeneralTour = new JButton("Create general tour");
+		createSpecificTour = new JButton("Create specific tour");
 	    this.add(slLabel);
 	    this.add(Box.createRigidArea(new Dimension(0,50)));
 	    this.add(imeLabel);
-	    this.add(Box.createRigidArea(new Dimension(0,50)));
+	    this.add(Box.createRigidArea(new Dimension(0,60)));
 	    this.add(changeProfile);
+	    this.add(Box.createRigidArea(new Dimension(0,90)));
+	    this.add(createGeneralTour);
+	    this.add(Box.createRigidArea(new Dimension(0,20)));
+	    this.add(createSpecificTour);
+	    createGeneralTour.setAlignmentX(CENTER_ALIGNMENT);
+	    createSpecificTour.setAlignmentX(CENTER_ALIGNMENT);
 	    changeProfile.setAlignmentX(CENTER_ALIGNMENT);
 	    slLabel.setAlignmentX(CENTER_ALIGNMENT);
 	    imeLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -62,5 +73,11 @@ public class ProfilPanel extends JPanel{
 	}
 	public void addChangeButtonListener(ActionListener al){
 		this.changeProfile.addActionListener(al);
+	}
+	public void addCreateGenTourButtonListener(ActionListener al){
+		createGeneralTour.addActionListener(al);
+	}
+	public void addCreateSpecTourButtonListener(ActionListener al){
+		this.createSpecificTour.addActionListener(al);
 	}
 }
