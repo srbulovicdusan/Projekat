@@ -3,12 +3,16 @@ package contoller;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageFilter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.Application;
 import model.Korisnik;
@@ -131,7 +135,6 @@ public class Controller {
 					return;
 				}
 			}
-			
 			mainWindow.getTrenutniKorisnik().setKorisnickoIme(changeProfileGui.getUserNameField().getText());
 			mainWindow.getTrenutniKorisnik().setEmail(changeProfileGui.getEmailField().getText());
 			mainWindow.getTrenutniKorisnik().setLozinka(changeProfileGui.getPasswordField().getText());
@@ -139,11 +142,10 @@ public class Controller {
 			mainWindow.getTrenutniKorisnik().getOsoba().setPrezime(changeProfileGui.getLastNameField().getText());
 			mainWindow.remove(mainWindow.getProfilePanel());
 			mainWindow.setProfilePanel(new ProfilPanel(mainWindow.getTrenutniKorisnik()));
+			mainWindow.getProfilePanel().addChangeButtonListener(new ChangeProfileListener());// dodaj listener za dugme "change profile"
 			mainWindow.add(mainWindow.getProfilePanel(), BorderLayout.EAST);
 			SwingUtilities.updateComponentTreeUI(mainWindow.getProfilePanel());
-			changeProfileGui.setVisible(false);
-			
-			
+			changeProfileGui.setVisible(false);	
 		}
 		
 	}
@@ -153,17 +155,20 @@ public class Controller {
 		@Override
         public void actionPerformed(ActionEvent ae) {
 			JFileChooser fc = new JFileChooser();
+			FileFilter imageFilter = new FileNameExtensionFilter(
+				    "Image files", ImageIO.getReaderFileSuffixes());
+			fc.setFileFilter(imageFilter);
+			//fc.addChoosableFileFilter(new ImageFilter());
             int result = fc.showOpenDialog(null);
             if (result == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                System.out.println(file.toPath());
                 File dest = new File("res/" + file.getName());
-                
-                System.out.println(dest.toPath());
                 try {
-					Files.copy(file.toPath(),
-					        dest.toPath());
+                	if (!dest.exists()){
+                		Files.copy(file.toPath(), dest.toPath());
+                	}
 					mainWindow.getTrenutniKorisnik().setSlika("res/" + file.getName());
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
