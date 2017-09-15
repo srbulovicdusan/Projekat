@@ -8,6 +8,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 import model.Tura;
 
@@ -21,23 +22,24 @@ public class TuraPanel extends JPanel{
 	    this.addTureGui(ture);
 		
 	}
-	/*
+	
 	public void addTura(Tura t){
 			TuraGui turaGui = new TuraGui(t);
 			this.add(turaGui);
 		    this.add(Box.createRigidArea(new Dimension(0,100)));
-	}*/
+			SwingUtilities.updateComponentTreeUI(this);
+	}
 	
 	public void addTureGui(ArrayList<Tura> ture){ // arg ArrayList<Tura>
 
-		/* Kada budu bile napravljene ture, samo ova for petlja ce stojati
+		
 		for(Tura t : ture){
-			
+			System.out.println(t.getOpis());
 			TuraGui turaGui = new TuraGui(t);
 			this.add(turaGui);
 		    this.add(Box.createRigidArea(new Dimension(0,100)));
 		}
-		*/
+		
 		Tura t = new Tura();
 		TuraGui turaGui = new TuraGui(t);
 	    this.add(turaGui);
@@ -61,6 +63,7 @@ public class TuraPanel extends JPanel{
 		TuraGui turaGui5 = new TuraGui(t4);
 	    this.add(turaGui5);
 	    this.add(Box.createRigidArea(new Dimension(0,100)));
+		SwingUtilities.updateComponentTreeUI(this);
 
 	}
 }

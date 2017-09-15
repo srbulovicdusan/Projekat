@@ -6,6 +6,7 @@ public class Tura {
 	private String opis;
 	private String grad;
 	private String naziv;
+	private String slika;
 	ArrayList<String > komentari;
 	ArrayList<KonkretnaTura> konkretneTure;
 	
@@ -13,9 +14,10 @@ public class Tura {
 		
 	}
 	
-	public Tura(ArrayList<Integer> ocene, String opis, String grad, String naziv, ArrayList<String> komentari,
+	public Tura(ArrayList<Integer> ocene, String opis, String grad, String naziv, String slika, ArrayList<String> komentari,
 			ArrayList<KonkretnaTura> konkretneTure) {
 		super();
+		this.slika = slika;
 		this.ocene = ocene;
 		this.opis = opis;
 		this.grad = grad;
@@ -24,6 +26,15 @@ public class Tura {
 		this.konkretneTure = konkretneTure;
 	}
 	
+	
+	public String getSlika() {
+		return slika;
+	}
+
+	public void setSlika(String slika) {
+		this.slika = slika;
+	}
+
 	public ArrayList<Integer> getOcene() {
 		return ocene;
 	}
