@@ -8,6 +8,22 @@ public class Tura {
 	private String naziv;
 	ArrayList<String > komentari;
 	ArrayList<KonkretnaTura> konkretneTure;
+	
+	public Tura(){
+		
+	}
+	
+	public Tura(ArrayList<Integer> ocene, String opis, String grad, String naziv, ArrayList<String> komentari,
+			ArrayList<KonkretnaTura> konkretneTure) {
+		super();
+		this.ocene = ocene;
+		this.opis = opis;
+		this.grad = grad;
+		this.naziv = naziv;
+		this.komentari = komentari;
+		this.konkretneTure = konkretneTure;
+	}
+	
 	public ArrayList<Integer> getOcene() {
 		return ocene;
 	}
