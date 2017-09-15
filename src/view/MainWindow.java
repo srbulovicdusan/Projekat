@@ -15,14 +15,21 @@ import model.Tura;
 
 public class MainWindow extends JFrame {
 
+	// treba da se doda FilterPanel u atr
 
-	JButton logInB;
-	JButton signUpB;
+	private JButton logInB;
+	private JButton signUpB;
 
-	JToolBar toolbar;
+	private JToolBar toolbar;
 	private ProfilPanel profilePanel;
+
+	
+	private FilterPanel filterPanel;
+
+
 	private JScrollPane scrollPanel;
 	private TuraPanel turaPanel;
+
 	private Korisnik trenutniKorisnik;
 
 	
@@ -78,7 +85,8 @@ public class MainWindow extends JFrame {
 		
 	}
 	public void addFilterPanel(){
-		FilterPanel filterPanel = new FilterPanel();
+		
+		filterPanel = new FilterPanel();
 		this.add(filterPanel,BorderLayout.WEST);
 	}
 	
@@ -118,6 +126,9 @@ public class MainWindow extends JFrame {
 		this.trenutniKorisnik = trenutniKorisnik;
 	}
 	
+	public FilterPanel getFilterPanel() {
+		return filterPanel;
+	}
 
 
 }
