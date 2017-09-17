@@ -14,6 +14,10 @@ import model.Tura;
 
 public class TuraPanel extends JPanel{	
 	
+	// izdvoji arraylist<TuraGui>
+	
+	//private ArrayList<TuraGui>
+	
 	public TuraPanel(ArrayList<Tura> ture){ //arg ArrayList<Tura>
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBorder(BorderFactory.createEmptyBorder(50, 20, 0, 0));
@@ -34,7 +38,6 @@ public class TuraPanel extends JPanel{
 
 		
 		for(Tura t : ture){
-			System.out.println(t.getOpis());
 			TuraGui turaGui = new TuraGui(t);
 			this.add(turaGui);
 		    this.add(Box.createRigidArea(new Dimension(0,100)));
