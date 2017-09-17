@@ -88,6 +88,7 @@ public class MainWindow extends JFrame {
 		
 		filterPanel = new FilterPanel();
 		this.add(filterPanel,BorderLayout.WEST);
+		
 	}
 	
 	public void addTuraPanel(ArrayList<Tura> ture){ //arg ArrayList<Tura>
@@ -101,9 +102,16 @@ public class MainWindow extends JFrame {
 	public TuraPanel getTuraPanel() {
 		return turaPanel;
 	}
-	public void setTuraPanel(TuraPanel turaPanel) {
-		this.turaPanel = turaPanel;
+	
+	
+	public void setTuraPanel(ArrayList<Tura> p_ture) {
+		this.remove(turaPanel);
+		this.remove(scrollPanel);
+		this.addTuraPanel(p_ture);
 	}
+	
+	
+	
 	public void addProfilePanel(Korisnik k){
 		ProfilPanel newProfilPanel = new ProfilPanel(k);
 		//dodato

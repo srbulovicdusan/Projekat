@@ -1,6 +1,6 @@
 package view;
-import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -61,6 +61,8 @@ public class FilterPanel extends JPanel {
 	public void setNazivTureTxt(JTextField nazivTureTxt) {
 		this.nazivTxt = nazivTureTxt;
 	}
-	
+	public void addPretraziListener(ActionListener al){
+		this.pretraziButton.addActionListener(al);
+	}
 
 }

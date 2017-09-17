@@ -7,12 +7,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
-
-import javax.swing.JScrollPane;
-
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -30,7 +28,6 @@ import view.MainWindow;
 import view.ProfilPanel;
 import view.QuestionWindow;
 import view.SignUp;
-import view.TuraPanel;
 
 public class Controller {
 	private MainWindow mainWindow; //viewer
@@ -47,6 +44,7 @@ public class Controller {
 		this.application = application;
 		mainWindow.addLoginListener(new LoginListener());
 		mainWindow.addSignListener(new SignUpListener());
+		mainWindow.getFilterPanel().addPretraziListener(new FilterSearchButton());
 
 	}
 	
@@ -246,7 +244,6 @@ public class Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			qw.setVisible(false);
 			specificTourWindow = new KreiranjeKonkretneTureGui();
 			specificTourWindow.addbtnCreateSpecTourListener(new CreateSpecTourBtnListener());
 		}
@@ -307,35 +304,56 @@ public class Controller {
 	
 	class FilterSearchButton implements ActionListener {
 
+		private String searchTextMesto = "";
+		private String searchTextNaziv = "";
+		ArrayList<Tura> searchResults;
+		ListIterator<Tura> iter;
+		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			ArrayList<Tura> searchResults = new ArrayList<Tura>();
-			String searchTextMesto = mainWindow.getFilterPanel().getMestoTxt().getText();
-			String searchTextNaziv = mainWindow.getFilterPanel().getNazivTureTxt().getText();
 			
+			searchResults = new ArrayList<Tura>();
+			searchTextMesto = mainWindow.getFilterPanel().getMestoTxt().getText();
+			searchTextMesto = searchTextMesto.replaceAll("\\n", "");
+			searchTextNaziv = mainWindow.getFilterPanel().getNazivTureTxt().getText();
+			
+			mainWindow.getFilterPanel().getMestoTxt().setText("");
+			mainWindow.getFilterPanel().getNazivTureTxt().setText("");
+			if (application.getTure().isEmpty() == true){
+				System.out.println("prazna lista");
+			}
 			for (Tura tura : application.getTure()) {
 				searchResults.add(tura);
+				
 			}
 			
 			// remove from results if the city doesn't match
+			
+			//ako ne radi, vrati ovde
+			//ListIterator<Tura> iter;
+			
 			if(!searchTextMesto.isEmpty()) {
-				for (Tura tura : searchResults) {
-					if (!searchTextMesto.equalsIgnoreCase(tura.getGrad())) {
-						searchResults.remove(tura);
+				
+				for (iter = searchResults.listIterator(); iter.hasNext(); )
+				{
+					if (!searchTextMesto.equalsIgnoreCase(iter.next().getGrad())) {
+						iter.remove();
 					}
 				}
 			}
 			
 			// remove from results if tour name doesn't match
 			if (!searchTextNaziv.isEmpty()) {
-				for (Tura tura : searchResults) {
-					if (!searchTextNaziv.equalsIgnoreCase(tura.getNaziv())) {
-						searchResults.remove(tura);
+				for (iter = searchResults.listIterator(); iter.hasNext(); )
+				{
+					if (!searchTextNaziv.equalsIgnoreCase(iter.next().getNaziv())) {
+						iter.remove();
 					}
 				}
 			}
 			
-			mainWindow.addTuraPanel(searchResults);
+			mainWindow.setTuraPanel(searchResults);
+			SwingUtilities.updateComponentTreeUI(mainWindow);
 			
 		}
 		
