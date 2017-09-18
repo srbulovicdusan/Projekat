@@ -235,8 +235,9 @@ public class Controller {
 				
 				generalTourWindow.setVisible(false);
 				qw = new QuestionWindow();
-				qw.addYesButtonListener(new CreateSpecificTourListener());
+				qw.addYesButtonListener(new CreateYesButtonListener());
 				qw.addNoButtonListener(new CreateNoBtnListener());
+				
 			}
 		}
 		
@@ -246,7 +247,6 @@ public class Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			qw.setVisible(false);
 			specificTourWindow = new KreiranjeKonkretneTureGui();
 			specificTourWindow.addbtnCreateSpecTourListener(new CreateSpecTourBtnListener());
 		}
@@ -268,6 +268,17 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			qw.setVisible(false);
+		}
+		
+	}
+	class CreateYesButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			qw.setVisible(false);
+			specificTourWindow = new KreiranjeKonkretneTureGui();
+			specificTourWindow.addbtnCreateSpecTourListener(new CreateSpecTourBtnListener());
+
 		}
 		
 	}
