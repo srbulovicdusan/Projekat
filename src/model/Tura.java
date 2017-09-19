@@ -7,6 +7,7 @@ public class Tura {
 	private String grad;
 	private String naziv;
 	private String slika;
+	private Vodic vodic;
 	ArrayList<String > komentari;
 	ArrayList<KonkretnaTura> konkretneTure;
 	
@@ -70,6 +71,14 @@ public class Tura {
 	}
 	public void setKonkretneTure(ArrayList<KonkretnaTura> konkretneTure) {
 		this.konkretneTure = konkretneTure;
+	}
+
+	public Vodic getVodic() {
+		return vodic;
+	}
+
+	public void setVodic(Vodic vodic) {
+		this.vodic = vodic;
 	}
 	
 	

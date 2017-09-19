@@ -12,6 +12,7 @@ import javax.swing.JToolBar;
 
 import model.Korisnik;
 import model.Tura;
+import model.Vodic;
 
 public class MainWindow extends JFrame {
 
@@ -113,7 +114,13 @@ public class MainWindow extends JFrame {
 	
 	
 	public void addProfilePanel(Korisnik k){
-		ProfilPanel newProfilPanel = new ProfilPanel(k);
+		ProfilPanel newProfilPanel;
+		if (k.getOsoba() instanceof Vodic){
+			newProfilPanel = new ProfilPanelVodic(k);
+		}else{
+			//new ProfilPanelTurista
+			newProfilPanel = new ProfilPanel(k);
+		}
 		//dodato
 		this.remove(profilePanel);
 		this.profilePanel = newProfilPanel;

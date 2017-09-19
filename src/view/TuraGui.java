@@ -2,6 +2,7 @@ package view;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.Box;
@@ -9,6 +10,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import model.Tura;
@@ -36,13 +38,15 @@ public class TuraGui extends JPanel {
 		slika = new ImageIcon( newimg );
 	    button = new JButton(slika);
 	    opis = new JTextArea();
-	    opis.setMaximumSize(new Dimension(700,50));
+	    opis.setMaximumSize(new Dimension(700,150));
 	    opis.setLineWrap(true);
 	    opis.setEditable(false);
-	    opis.setText(t.getOpis()); //t.getOpis()
-	    
+	    opis.setFont(new Font("Default", 0, 14));
+	    opis.setText("Naziv: " + t.getNaziv() + "\n\nMesto: " + t.getGrad() + "\n\nVodic: "+ t.getVodic().getIme() + " " + t.getVodic().getPrezime() +"\n\nOpis: " + t.getOpis()); //t.getOpis()
+
 	    this.add(button);
-	    this.add(Box.createRigidArea(new Dimension(50,0)));
+	    this.add(Box.createRigidArea(new Dimension(30,0)));
 	    this.add(opis);
+	    
 	}
 }

@@ -43,29 +43,6 @@ public class TuraPanel extends JPanel{
 		    this.add(Box.createRigidArea(new Dimension(0,100)));
 		}
 		
-		Tura t = new Tura();
-		TuraGui turaGui = new TuraGui(t);
-	    this.add(turaGui);
-	    this.add(Box.createRigidArea(new Dimension(0,100)));
-	    Tura t1 = new Tura();
-	    TuraGui turaGui2 = new TuraGui(t1);
-	    this.add(turaGui2);
-	    this.add(Box.createRigidArea(new Dimension(0,100)));
-	    
-	    Tura t2 = new Tura();
-		TuraGui turaGui3 = new TuraGui(t2);
-	    this.add(turaGui3);
-	    this.add(Box.createRigidArea(new Dimension(0,100)));
-	    
-	    Tura t3 = new Tura();
-		TuraGui turaGui4 = new TuraGui(t3);
-	    this.add(turaGui4);
-	    this.add(Box.createRigidArea(new Dimension(0,100)));
-	    
-	    Tura t4 = new Tura();
-		TuraGui turaGui5 = new TuraGui(t4);
-	    this.add(turaGui5);
-	    this.add(Box.createRigidArea(new Dimension(0,100)));
 		SwingUtilities.updateComponentTreeUI(this);
 
 	}

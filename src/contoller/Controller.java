@@ -26,6 +26,7 @@ import view.KreiranjeOpsteTureGui;
 import view.LogIn;
 import view.MainWindow;
 import view.ProfilPanel;
+import view.ProfilPanelVodic;
 import view.QuestionWindow;
 import view.SignUp;
 
@@ -76,8 +77,14 @@ public class Controller {
 						mainWindow.setTrenutniKorisnik(k);
 						mainWindow.addProfilePanel(k);
 						mainWindow.getProfilePanel().addChangeButtonListener(new ChangeProfileListener());// dodaj listener za dugme "change profile"
-						mainWindow.getProfilePanel().addCreateGenTourButtonListener(new CreateGeneralTourListener());
-						mainWindow.getProfilePanel().addCreateSpecTourButtonListener(new CreateSpecificTourListener());
+						if (mainWindow.getProfilePanel() instanceof ProfilPanelVodic){
+							((ProfilPanelVodic)mainWindow.getProfilePanel()).addCreateGenTourButtonListener(new CreateGeneralTourListener());
+							((ProfilPanelVodic)mainWindow.getProfilePanel()).addCreateSpecTourButtonListener(new CreateSpecificTourListener());
+						}else{
+							//profilPanelTurista
+							
+						}
+
 						SwingUtilities.updateComponentTreeUI(mainWindow);
 						logIn.setVisible(false);
 						return;
@@ -226,6 +233,7 @@ public class Controller {
 				generalTourWindow.setTura(tura);
 				Vodic v  = (Vodic) mainWindow.getTrenutniKorisnik().getOsoba();
 				v.addTura(tura);
+				tura.setVodic(v);
 				application.addTour(tura);
 				mainWindow.getTuraPanel().addTura(tura);
 				
