@@ -20,8 +20,10 @@ public class ProfilPanelVodic extends ProfilPanel {
 	    this.add(createGeneralTour);
 	    this.add(Box.createRigidArea(new Dimension(0,20)));
 	    this.add(createSpecificTour);
+	    this.add(Box.createRigidArea(new Dimension(0,20)));
 	    createGeneralTour.setAlignmentX(CENTER_ALIGNMENT);
 	    createSpecificTour.setAlignmentX(CENTER_ALIGNMENT);
+	    
 	}
 	public void addCreateGenTourButtonListener(ActionListener al){
 		createGeneralTour.addActionListener(al);

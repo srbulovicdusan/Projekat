@@ -45,6 +45,9 @@ public class Application {
 	public void addTour(Tura tura) {
 		ture.add(tura);
 	}
+	public void removeTour(Tura tura){
+		this.ture.remove(tura);
+	}
 	
 	public boolean checkTourName(String name){
 		for(Tura t : ture){

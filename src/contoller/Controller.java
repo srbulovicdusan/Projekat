@@ -1,6 +1,7 @@
 package contoller;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -10,7 +11,9 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -29,6 +32,8 @@ import view.ProfilPanel;
 import view.ProfilPanelVodic;
 import view.QuestionWindow;
 import view.SignUp;
+import view.TuraGui;
+import view.TuraPanel;
 
 public class Controller {
 	private MainWindow mainWindow; //viewer
@@ -80,6 +85,9 @@ public class Controller {
 						if (mainWindow.getProfilePanel() instanceof ProfilPanelVodic){
 							((ProfilPanelVodic)mainWindow.getProfilePanel()).addCreateGenTourButtonListener(new CreateGeneralTourListener());
 							((ProfilPanelVodic)mainWindow.getProfilePanel()).addCreateSpecTourButtonListener(new CreateSpecificTourListener());
+							loadGuideTours();
+							mainWindow.getMyToursPanel().addGuideButtons();
+							mainWindow.getMyToursPanel().addGuideListeners(new ChangeTourListener(),new DeleteTourListener());
 						}else{
 							//profilPanelTurista
 							
@@ -232,10 +240,15 @@ public class Controller {
 						null, null);
 				generalTourWindow.setTura(tura);
 				Vodic v  = (Vodic) mainWindow.getTrenutniKorisnik().getOsoba();
-				v.addTura(tura);
+				v.addTour(tura);
 				tura.setVodic(v);
 				application.addTour(tura);
 				mainWindow.getTuraPanel().addTura(tura);
+				
+				mainWindow.getMyToursPanel().addTura(tura);
+				mainWindow.getMyToursPanel().addGuideButtons();
+				mainWindow.getMyToursPanel().addGuideListeners(new ChangeTourListener(), new DeleteTourListener());
+				
 				
 				//SwingUtilities.updateComponentTreeUI(mainWindow.getScrollPanel());
 				
@@ -379,7 +392,55 @@ public class Controller {
 		
 		
 	}
+	public void loadGuideTours(){
+		TuraPanel turaPanel = new TuraPanel(((Vodic)mainWindow.getTrenutniKorisnik().getOsoba()).getTure());
+		JScrollPane scrollPane = new JScrollPane(turaPanel);
+		mainWindow.setMyToursPanel(turaPanel);
+		mainWindow.getMyToursPanel().addGuideButtons();
+		mainWindow.getMyToursPanel().addGuideListeners(new ChangeTourListener(), new DeleteTourListener());
+		mainWindow.getTabbedPane().add("MyTours", scrollPane);
+	}
 	
-	
+	public class DeleteTourListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent actionEvent) {
+			for (Component tura: mainWindow.getMyToursPanel().getComponents()){
+				if (tura instanceof TuraGui){
+					if (((TuraGui) tura).getDelete() == (JButton)actionEvent.getSource()){
+						
+						application.removeTour(((TuraGui) tura).getTura());
+						((Vodic)mainWindow.getTrenutniKorisnik().getOsoba()).removeTour(((TuraGui) tura).getTura());
+						mainWindow.setTuraPanel(application.getTure());
+						mainWindow.getTabbedPane().removeAll();
+						mainWindow.getTabbedPane().add("All Tours", new JScrollPane(mainWindow.getTuraPanel()));
+						loadGuideTours();
+						mainWindow.getTabbedPane().setSelectedIndex(1);
+						//mainWindow.remove(mainWindow.getTuraPanel());
+						//mainWindow.addTuraPanel(application.getTure());
+						
+						
+						
+						
+						System.out.println("aa");
+					}
+				}
+			}
+			SwingUtilities.updateComponentTreeUI(mainWindow.getMyToursPanel());
+			SwingUtilities.updateComponentTreeUI(mainWindow.getTuraPanel());
+			SwingUtilities.updateComponentTreeUI(mainWindow.getScrollPanel());
+		}
+		
+		
+	}
+	public class ChangeTourListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
 	
 }

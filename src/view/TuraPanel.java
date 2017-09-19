@@ -1,13 +1,14 @@
 package view;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 import model.Tura;
@@ -25,6 +26,11 @@ public class TuraPanel extends JPanel{
 			    
 	    this.addTureGui(ture);
 		
+	}
+	public TuraPanel(){
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.setBorder(BorderFactory.createEmptyBorder(50, 20, 0, 0));
+		this.setBackground(Color.white);
 	}
 	
 	public void addTura(Tura t){
@@ -45,5 +51,20 @@ public class TuraPanel extends JPanel{
 		
 		SwingUtilities.updateComponentTreeUI(this);
 
+	}
+	public void addGuideButtons(){
+		for (Component turaGui: this.getComponents()){
+			if (turaGui instanceof TuraGui){
+				((TuraGui) turaGui).addGuideButtons();
+			}
+		}
+	}
+	public void addGuideListeners(ActionListener changeListener, ActionListener deleteListener){
+		for (Component turaGui: this.getComponents()){
+			if (turaGui instanceof TuraGui){
+				((TuraGui) turaGui).getChange().addActionListener(changeListener);
+				((TuraGui) turaGui).getDelete().addActionListener(deleteListener);
+			}
+		}
 	}
 }

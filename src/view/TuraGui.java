@@ -10,7 +10,6 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import model.Tura;
@@ -19,12 +18,16 @@ public class TuraGui extends JPanel {
 	ImageIcon slika;
     JButton button;
     JTextArea opis;
+    JButton change;
+    JButton delete;
+    Tura tura;
+
 	//
 	//
 	//
 	//
 	public TuraGui(Tura t){ //arg Tura t
-
+		this.tura = t;
 		this.setLayout((new BoxLayout(this, BoxLayout.LINE_AXIS)));
 	    this.setAlignmentX(Component.LEFT_ALIGNMENT);
 	    this.setBackground(Color.white);
@@ -38,7 +41,7 @@ public class TuraGui extends JPanel {
 		slika = new ImageIcon( newimg );
 	    button = new JButton(slika);
 	    opis = new JTextArea();
-	    opis.setMaximumSize(new Dimension(700,150));
+	    opis.setMaximumSize(new Dimension(600,150));
 	    opis.setLineWrap(true);
 	    opis.setEditable(false);
 	    opis.setFont(new Font("Default", 0, 14));
@@ -49,4 +52,39 @@ public class TuraGui extends JPanel {
 	    this.add(opis);
 	    
 	}
+	public void addGuideButtons(){
+		if (change == null && delete == null){
+			change = new JButton("Change");
+			delete = new JButton("delete");
+		    delete.setMaximumSize(change.getMaximumSize());
+			JPanel panel = new JPanel();
+			panel.setLayout((new BoxLayout(panel, BoxLayout.PAGE_AXIS)));
+			panel.setBackground(Color.white);
+			panel.add(change);
+			panel.add(Box.createRigidArea(new Dimension(0,30)));
+			panel.add(delete);
+			panel.setAlignmentY(CENTER_ALIGNMENT);
+			//this.add(Box.createRigidArea(new Dimension(30,0)));
+			this.add(panel);
+		}
+	}
+	public JButton getChange() {
+		return change;
+	}
+	public void setChange(JButton change) {
+		this.change = change;
+	}
+	public JButton getDelete() {
+		return delete;
+	}
+	public void setDelete(JButton delete) {
+		this.delete = delete;
+	}
+	public Tura getTura() {
+		return tura;
+	}
+	public void setTura(Tura tura) {
+		this.tura = tura;
+	}
+	
 }

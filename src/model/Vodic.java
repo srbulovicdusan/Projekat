@@ -37,8 +37,11 @@ public class Vodic extends Osoba{
 		this.ture = ture;
 	}
 	
-	public void addTura(Tura t){
+	public void addTour(Tura t){
 		this.ture.add(t);
+	}
+	public void removeTour(Tura t){
+		this.ture.remove(t);
 	}
 	
 }

@@ -21,6 +21,7 @@ public class main {
 		Tura t = new Tura(ocene, "fdfd", "fds", "dsf", null, new ArrayList<String>(Arrays.asList("vg", "fjg")),
 				new ArrayList<KonkretnaTura>(Arrays.asList(kt)));
 		t.setVodic((Vodic)k.getOsoba());
+		((Vodic) k.getOsoba()).addTour(t);
 		app.addKorisnik(k);
 		app.addTour(t);
 		

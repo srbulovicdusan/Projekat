@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
 import model.Korisnik;
@@ -32,8 +33,15 @@ public class MainWindow extends JFrame {
 	private TuraPanel turaPanel;
 
 	private Korisnik trenutniKorisnik;
-
 	
+	private JTabbedPane tabbedPane;
+	public JTabbedPane getTabbedPane() {
+		return tabbedPane;
+	}
+	public void setTabbedPane(JTabbedPane tabbedPane) {
+		this.tabbedPane = tabbedPane;
+	}
+	private TuraPanel MyToursPanel;
 
 	public JScrollPane getScrollPanel() {
 		return scrollPanel;
@@ -75,8 +83,13 @@ public class MainWindow extends JFrame {
 
 		
 		this.addFilterPanel();
-		this.addTuraPanel(ture);
-		
+		//this.addTuraPanel(ture);
+		turaPanel = new TuraPanel(ture);
+		scrollPanel = new JScrollPane(turaPanel);
+		//this.add(scrollPanel,BorderLayout.CENTER);
+		this.tabbedPane = new JTabbedPane();
+		this.tabbedPane.addTab("All Tours", scrollPanel);
+		this.add(tabbedPane, BorderLayout.CENTER);
 		//creating empty profile panel
 		this.profilePanel = new ProfilPanel();
 		this.add(this.profilePanel, BorderLayout.EAST);
@@ -95,7 +108,7 @@ public class MainWindow extends JFrame {
 	public void addTuraPanel(ArrayList<Tura> ture){ //arg ArrayList<Tura>
 		turaPanel = new TuraPanel(ture);
 		scrollPanel = new JScrollPane(turaPanel);
-		this.add(scrollPanel,BorderLayout.CENTER);
+		//this.add(scrollPanel,BorderLayout.CENTER);
 		//this.add(turaPanel, BorderLayout.CENTER);
 		
 	}
@@ -144,6 +157,13 @@ public class MainWindow extends JFrame {
 	public FilterPanel getFilterPanel() {
 		return filterPanel;
 	}
+	public TuraPanel getMyToursPanel() {
+		return MyToursPanel;
+	}
+	public void setMyToursPanel(TuraPanel myToursPanel) {
+		MyToursPanel = myToursPanel;
+	}
+
 
 
 }
