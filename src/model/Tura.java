@@ -8,8 +8,8 @@ public class Tura {
 	private String naziv;
 	private String slika;
 	private Vodic vodic;
-	ArrayList<String > komentari;
-	ArrayList<KonkretnaTura> konkretneTure;
+	private ArrayList<String > komentari;
+	private ArrayList<KonkretnaTura> konkretneTure;
 	
 	public Tura(){
 		
@@ -27,6 +27,13 @@ public class Tura {
 		this.konkretneTure = konkretneTure;
 	}
 	
+	public Tura(String opis, String grad, String naziv, String slika) {
+		super();
+		this.slika = slika;
+		this.opis = opis;
+		this.grad = grad;
+		this.naziv = naziv;
+	}
 	
 	public String getSlika() {
 		return slika;
@@ -79,6 +86,10 @@ public class Tura {
 
 	public void setVodic(Vodic vodic) {
 		this.vodic = vodic;
+	}
+	
+	public void addKonkretnaTura(KonkretnaTura kTura) {
+		this.konkretneTure.add(kTura);
 	}
 	
 	
