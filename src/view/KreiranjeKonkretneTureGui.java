@@ -1,18 +1,19 @@
 package view;
 
-import javax.swing.JFrame;
-import javax.swing.JTree;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
-import datechooser.beans.DateChooserCombo;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import datechooser.beans.DateChooserCombo;
+import model.Tura;
 
 
 public class KreiranjeKonkretneTureGui extends JFrame{
@@ -61,6 +62,10 @@ public class KreiranjeKonkretneTureGui extends JFrame{
 	}
 	
 	public KreiranjeKonkretneTureGui() {
+		
+	}
+	
+	public KreiranjeKonkretneTureGui(ArrayList<Tura> ture) {
 		setTitle("Create specific tour");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
@@ -106,7 +111,13 @@ public class KreiranjeKonkretneTureGui extends JFrame{
 		lblGeneralTour.setBounds(10, 195, 79, 14);
 		getContentPane().add(lblGeneralTour);
 		
-		genTourComboBox = new JComboBox();
+		// dodaj da radi sa listom objekata Tura
+		String[] naziviTura = new String[ture.size()];
+		for (int i=0; i < ture.size(); i++) {
+			naziviTura[i] = ture.get(i).getNaziv();
+		}
+		
+		genTourComboBox = new JComboBox(naziviTura);
 		genTourComboBox.setBounds(87, 195, 147, 20);
 		getContentPane().add(genTourComboBox);
 		

@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
 import java.util.ListIterator;
 
 import javax.imageio.ImageIO;
@@ -19,6 +21,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.Application;
+import model.KonkretnaTura;
 import model.Korisnik;
 import model.Tura;
 import model.Turista;
@@ -233,11 +236,11 @@ public class Controller {
 					generalTourWindow.displayNameErrorMessage();
 					return;
 				}
-				Tura tura = new Tura(null,
+				Tura tura = new Tura(new ArrayList<Integer>(),
 						generalTourWindow.getTextAreaDesc().getText(),
 						generalTourWindow.getCityField().getText(),
 						generalTourWindow.getNameField().getText(), generalTourWindow.getTura().getSlika(),
-						null, null);
+						new ArrayList<String>(), new ArrayList<KonkretnaTura>());
 				generalTourWindow.setTura(tura);
 				Vodic v  = (Vodic) mainWindow.getTrenutniKorisnik().getOsoba();
 				v.addTour(tura);
@@ -266,18 +269,34 @@ public class Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			specificTourWindow = new KreiranjeKonkretneTureGui();
+			specificTourWindow = new KreiranjeKonkretneTureGui(application.getTure());
 			specificTourWindow.addbtnCreateSpecTourListener(new CreateSpecTourBtnListener());
 		}
 	}
 	
 	class CreateSpecTourBtnListener implements ActionListener{
 
+		private double price;
+		private String remark;
+		private Calendar startDate;
+		private Calendar endDate;
+		private String tura;
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			//cuvanje nove konkretne ture
 			
+			price = Double.parseDouble(specificTourWindow.getPriceField().getText());
+			remark = specificTourWindow.getRemarkTextArea().getText();
+			startDate = specificTourWindow.getStartDateChooser().getSelectedDate();
+			endDate = specificTourWindow.getEndDateChooser().getSelectedDate();
+			tura = specificTourWindow.getGenTourComboBox().getSelectedItem().toString();
+		   	
+		    for (Tura t : application.getTure()) {
+		    	if (t.getNaziv().equalsIgnoreCase(tura)) {
+		    		t.addKonkretnaTura(new KonkretnaTura(t,price,startDate,endDate,remark));
+		    	}
+		    }
+		    
 			specificTourWindow.setVisible(false);
 		}	
 	}
@@ -442,5 +461,8 @@ public class Controller {
 		}
 		
 	}
+	
+	
+	
 	
 }

@@ -22,9 +22,9 @@ public class FilterPanel extends JPanel {
 	public FilterPanel(){
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 200));
-		filterLabel = new JLabel("PRETRAGA");
-	    mestoLabel = new JLabel("Mesto: ");
-	    nazivTureLabel = new JLabel("Naziv ture: ");
+		filterLabel = new JLabel("SEARCH");
+	    mestoLabel = new JLabel("Destination: ");
+	    nazivTureLabel = new JLabel("Tour name: ");
 	    
 	    mestoTxt = new JTextField();
 	    mestoTxt.setMaximumSize(new Dimension(300,20));
@@ -32,17 +32,17 @@ public class FilterPanel extends JPanel {
 	    nazivTxt = new JTextField();
 	    nazivTxt.setMaximumSize(new Dimension(300,20));
 	
-	    pretraziButton = new JButton("Pretrazi");
+	    pretraziButton = new JButton("Search");
 	    
 	    
 	    this.add(filterLabel);
-	    this.add(Box.createRigidArea(new Dimension(0,50)));
-	    this.add(Box.createRigidArea(new Dimension(0,50)));
+	    this.add(Box.createRigidArea(new Dimension(0,20)));
 	    this.add(mestoLabel);
 	    this.add(mestoTxt);
-	    this.add(Box.createRigidArea(new Dimension(0,50)));
+	    this.add(Box.createRigidArea(new Dimension(0,10)));
 	    this.add(nazivTureLabel);
 	    this.add(nazivTxt);
+	    this.add(Box.createRigidArea(new Dimension(0,6)));
 	    this.add(pretraziButton);
 	}
 
