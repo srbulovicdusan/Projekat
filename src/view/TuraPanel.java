@@ -40,6 +40,12 @@ public class TuraPanel extends JPanel{
 			SwingUtilities.updateComponentTreeUI(this);
 	}
 	
+	public void addTuraGui(TuraGui turaGui){
+		this.add(turaGui);
+	    this.add(Box.createRigidArea(new Dimension(0,100)));
+		SwingUtilities.updateComponentTreeUI(this);
+	}
+	
 	public void addTureGui(ArrayList<Tura> ture){ // arg ArrayList<Tura>
 
 		

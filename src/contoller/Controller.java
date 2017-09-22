@@ -349,9 +349,16 @@ public class Controller {
 				v.addTour(tura);
 				tura.setVodic(v);
 				application.addTour(tura);
-				mainWindow.getTuraPanel().addTura(tura);
 				
-				mainWindow.getMyToursPanel().addTura(tura);
+				TuraGui turaGui = new TuraGui(tura);
+				TuraGui turaGui2 = new TuraGui(tura);
+				
+				turaGui.getOpen().addActionListener(new OpenGeneralTourListener());
+				turaGui2.getOpen().addActionListener(new OpenGeneralTourListener());
+				
+				mainWindow.getTuraPanel().addTuraGui(turaGui);
+				
+				mainWindow.getMyToursPanel().addTuraGui(turaGui2);
 				mainWindow.getMyToursPanel().addGuideButtons();
 				mainWindow.getMyToursPanel().addGuideListeners(new ChangeTourListener(), new DeleteTourListener());
 				
@@ -517,6 +524,11 @@ public class Controller {
 	}
 	public void loadGuideTours(){
 		TuraPanel turaPanel = new TuraPanel(((Vodic)application.getUlogovanKorisnik().getOsoba()).getTure());
+		for(Component turaGui : turaPanel.getComponents()){
+			if(turaGui instanceof TuraGui){
+				((TuraGui) turaGui).getOpen().addActionListener(new OpenGeneralTourListener());
+			}
+		}
 		JScrollPane scrollPane = new JScrollPane(turaPanel);
 		mainWindow.getTabbedPane().removeAll();
 		mainWindow.getTabbedPane().add("All Tours", mainWindow.getScrollPanel());
