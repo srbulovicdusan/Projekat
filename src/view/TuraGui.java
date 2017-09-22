@@ -37,8 +37,8 @@ public class TuraGui extends JPanel {
 			slika = new ImageIcon(t.getSlika());  //t.getImage
 		}
 		Image img = slika.getImage() ;  
-		Image newimg = img.getScaledInstance( 200, 150,  java.awt.Image.SCALE_SMOOTH ) ;  
-		slika = new ImageIcon( newimg );
+		Image newimg = img.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);  
+		slika = new ImageIcon(newimg);
 	    open = new JButton(slika);
 	    opis = new JTextArea();
 	    opis.setMaximumSize(new Dimension(600,150));
@@ -55,7 +55,7 @@ public class TuraGui extends JPanel {
 	public void addGuideButtons(){
 		if (change == null && delete == null){
 			change = new JButton("Change");
-			delete = new JButton("delete");
+			delete = new JButton("Delete");
 		    delete.setMaximumSize(change.getMaximumSize());
 			JPanel panel = new JPanel();
 			panel.setLayout((new BoxLayout(panel, BoxLayout.PAGE_AXIS)));
