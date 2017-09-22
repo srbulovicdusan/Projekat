@@ -100,8 +100,8 @@ public class MainWindow extends JFrame {
 	public void addTuraPanel(ArrayList<Tura> ture){ //arg ArrayList<Tura>
 		turaPanel = new TuraPanel(ture);
 		scrollPanel = new JScrollPane(turaPanel);
-		scrollPanel.setName("All Tours");
-		this.tabbedPane.add(scrollPanel, 0);
+		//scrollPanel.setName("All Tours");
+		//this.tabbedPane.add(scrollPanel, 0);
 		//this.add(scrollPanel,BorderLayout.CENTER);
 		//this.add(turaPanel, BorderLayout.CENTER);
 		

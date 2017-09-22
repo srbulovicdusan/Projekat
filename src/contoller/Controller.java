@@ -566,7 +566,7 @@ public class Controller {
 						((Vodic)application.getUlogovanKorisnik().getOsoba()).removeTour(((TuraGui) tura).getTura());
 						mainWindow.setTuraPanel(application.getTure());
 						mainWindow.getTabbedPane().removeAll();
-						mainWindow.getTabbedPane().add("All Tours", new JScrollPane(mainWindow.getTuraPanel()));
+						mainWindow.addTuraPanel(application.getTure());
 						loadGuideTours();
 						mainWindow.getTabbedPane().setSelectedIndex(1);
 					}
