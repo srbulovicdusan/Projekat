@@ -36,6 +36,18 @@ public class MainWindow extends JFrame {
 	private JTabbedPane tabbedPane;
 	
 	
+	public JButton getLogInB() {
+		return logInB;
+	}
+	public void setLogInB(JButton logInB) {
+		this.logInB = logInB;
+	}
+	public JButton getSignUpB() {
+		return signUpB;
+	}
+	public void setSignUpB(JButton signUpB) {
+		this.signUpB = signUpB;
+	}
 	public JTabbedPane getTabbedPane() {
 		return tabbedPane;
 	}
