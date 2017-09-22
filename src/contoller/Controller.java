@@ -21,6 +21,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
+
 import model.Application;
 import model.KonkretnaTura;
 import model.Korisnik;
@@ -28,6 +30,7 @@ import model.Rezervacija;
 import model.Tura;
 import model.Turista;
 import model.Vodic;
+import model.main;
 import view.ChangeProfileGui;
 import view.KonkretnaTuraGui;
 import view.KonkretneTurePanel;
@@ -198,9 +201,11 @@ public class Controller {
 						}else{
 							loadTouristReservations();	
 						}
-
+						mainWindow.getProfilePanel().addLogOutButtonListener(new LogOutButtonListener());
 						SwingUtilities.updateComponentTreeUI(mainWindow);
 						logIn.setVisible(false);
+						mainWindow.getLogInB().setVisible(false);
+						mainWindow.getSignUpB().setVisible(false);
 						return;
 					}
 				}
@@ -401,6 +406,13 @@ public class Controller {
 			endDate = specificTourWindow.getEndDateChooser().getSelectedDate();
 			tura = specificTourWindow.getGenTourComboBox().getSelectedItem().toString();
 		   	
+			
+			while(startDate.after(endDate)){
+				specificTourWindow.displayDateMessageError();
+				return;
+			}
+			
+			
 		    for (Tura t : application.getTure()) {
 		    	if (t.getNaziv().equalsIgnoreCase(tura)) {
 		    		t.addKonkretnaTura(new KonkretnaTura(t,price,startDate,endDate,remark));
@@ -427,6 +439,18 @@ public class Controller {
 			specificTourWindow = new KreiranjeKonkretneTureGui();
 			specificTourWindow.addbtnCreateSpecTourListener(new CreateSpecTourBtnListener());
 
+		}
+		
+	}
+	class LogOutButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			mainWindow.getProfilePanel().setVisible(false);
+			mainWindow.getTabbedPane().removeAll();
+			mainWindow.getTabbedPane().add("All Tours", mainWindow.getScrollPanel());
+			mainWindow.getLogInB().setVisible(true);
+			mainWindow.getSignUpB().setVisible(true);
 		}
 		
 	}

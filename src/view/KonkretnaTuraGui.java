@@ -3,10 +3,14 @@ package view;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -42,16 +46,27 @@ public class KonkretnaTuraGui extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	    slika.getScaledInstance( 200, 150,  java.awt.Image.SCALE_SMOOTH );
 	    rezervisi = new JButton("Rezervisi");
-	    slLabel = new JLabel(new ImageIcon(slika)); 
+	    slLabel = new JLabel(new ImageIcon(slika));
 	    opis = new JTextArea();
-	    opis.setMaximumSize(new Dimension(700,50));
+	    opis.setMaximumSize(new Dimension(700,140));
 	    opis.setLineWrap(true);
 	    opis.setEditable(false);
-	    opis.setText("23.4.2016 - 25.4.2016 " + "\n" + "NAPOMENE: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"); 
-	  //t.getDatumPoc + "-" + t.getDatumZavr + "\n" + "NAPOMENE: " + t.getOpis/Napo
+	    opis.setFont(new Font("Default", 0, 14));
+	    
+	    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	    
+	    Calendar c = konkretnaTura.getDatumPocetka().getInstance();
+	    Date datPoc = c.getTime();
+	    c = konkretnaTura.getDatumZavrsetka().getInstance();
+	    Date datZavrs = c.getTime();
+	    
+	    opis.setText("\nDate: " + formatter.format(datPoc) + "  -  " + formatter.format(datZavrs) 
+	    		+ "\nPrice: " + konkretnaTura.getCena() + " din" + "\nAbout: " + konkretnaTura.getDodatniOpis());
+	    
 	    this.add(slLabel);
-	    this.add(Box.createRigidArea(new Dimension(50,0)));
+	    this.add(Box.createRigidArea(new Dimension(30,0)));
 	    this.add(opis);
 	    this.add(Box.createRigidArea(new Dimension(50,0)));
 	    
