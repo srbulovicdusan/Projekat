@@ -28,12 +28,10 @@ public class MainWindow extends JFrame {
 	private KonkretneTurePanel MyReservationsPanel;
 	
 	private FilterPanel filterPanel;
-
+	private KonkretneTurePanel konkretneTure;
 
 	private JScrollPane scrollPanel;
 	private TuraPanel turaPanel;
-
-	private Korisnik trenutniKorisnik;
 	
 	private JTabbedPane tabbedPane;
 	
@@ -165,6 +163,12 @@ public class MainWindow extends JFrame {
 	}
 	public void setMyReservationsPanel(KonkretneTurePanel myReservationsPanel) {
 		MyReservationsPanel = myReservationsPanel;
+	}
+	public KonkretneTurePanel getKonkretneTure() {
+		return konkretneTure;
+	}
+	public void setKonkretneTure(KonkretneTurePanel konkretneTure) {
+		this.konkretneTure = konkretneTure;
 	}
 
 
