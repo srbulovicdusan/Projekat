@@ -17,6 +17,8 @@ public class main {
 		ArrayList<Integer> ocene = new ArrayList<Integer>(Arrays.asList(2, 12));
 		KonkretnaTura kt = new KonkretnaTura();
 		
+		//Vodic
+
 		Korisnik k = new Korisnik("p" , "k" , "email", null, new Vodic("Petar", "Petrovic"));
 		Tura t = new Tura(ocene, "fdfd", "fds", "dsf", null, new ArrayList<String>(Arrays.asList("vg", "fjg")),
 				new ArrayList<KonkretnaTura>(Arrays.asList(kt)));
@@ -24,6 +26,17 @@ public class main {
 		((Vodic) k.getOsoba()).addTour(t);
 		app.addKorisnik(k);
 		app.addTour(t);
+
+		
+		//Turista
+		Korisnik turista = new Korisnik("k" , "p" , "email", null, new Turista("Petar", "Petrovic"));
+
+		//Rezervacija rez = new Rezervacija();
+		//rez.setKonkretnaTura(kt);
+		//rez.setTurista((Turista)turista.getOsoba());
+		
+		//((Turista) turista.getOsoba()).rezervisiTuru(rez);
+		app.addKorisnik(turista);
 		
 		MainWindow mainW = new MainWindow(app.getTure());
 		Controller controller = new Controller(mainW, app);

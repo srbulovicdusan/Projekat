@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class KonkretnaTura {
-	private ArrayList<Rezervacija> rezervacije;
+	private ArrayList<Rezervacija> rezervacije = new ArrayList<Rezervacija>();
 	private Tura tura;
 	private double cena;
 	//private Date datumPocetka;
@@ -84,5 +84,8 @@ public class KonkretnaTura {
 	              d1.toString() + "\nDatum zavrsetka: " + d2.toString());
 	}
 	
+	public void dodajRezervaciju(Rezervacija rezervacija){
+		this.rezervacije.add(rezervacija);
+	}
 	
 }

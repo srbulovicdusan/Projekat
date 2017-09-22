@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,19 +18,21 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import model.KonkretnaTura;
-import model.Tura;
 
 public class KonkretnaTuraGui extends JPanel {
 
-	BufferedImage slika;
-    JButton rezervisi;
-    JLabel datumPocetka;
-    JLabel datumZavrsetka;
-    JLabel slLabel;
-    JTextArea opis;
-
+	private BufferedImage slika;
+    private JButton rezervisi;
+    private JButton otkazi;
+    private JLabel datumPocetka;
+    private JLabel datumZavrsetka;
+    private JLabel slLabel;
+    private JTextArea opis;
+    private KonkretnaTura konkretnaTura;
+    
+    
 	public KonkretnaTuraGui(KonkretnaTura t){ //arg Tura t
-
+		this.konkretnaTura = t;
 		this.setLayout((new BoxLayout(this, BoxLayout.LINE_AXIS)));
 	    this.setAlignmentX(Component.LEFT_ALIGNMENT);
 	    this.setBackground(Color.white);
@@ -51,7 +54,21 @@ public class KonkretnaTuraGui extends JPanel {
 	    this.add(Box.createRigidArea(new Dimension(50,0)));
 	    this.add(opis);
 	    this.add(Box.createRigidArea(new Dimension(50,0)));
-	    this.add(rezervisi);
 	    
+	    
+	}
+	public KonkretnaTura getKonkretnaTura(){
+		return this.konkretnaTura;
+	}
+	public void setKonkretnaTura(KonkretnaTura t){
+		this.konkretnaTura = t;
+	}
+	public void addReservationListener(ActionListener al){
+		rezervisi.addActionListener(al);
+		this.add(rezervisi);
+	}
+	public void addCancelReservetionListener(ActionListener al){
+		otkazi.addActionListener(al);
+		this.add(otkazi);
 	}
 }

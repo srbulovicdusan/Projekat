@@ -6,7 +6,7 @@ public class Turista extends Osoba {
 	public Turista(String ime, String prezime) {
 		super(ime, prezime);
 	}
-	private ArrayList<Rezervacija> rezervacije;
+	private ArrayList<Rezervacija> rezervacije = new ArrayList<Rezervacija>();
 	
 	public ArrayList<Rezervacija> getRezervacije() {
 		return rezervacije;
@@ -17,8 +17,8 @@ public class Turista extends Osoba {
 	public void pregledTura() {
 	      
 	}
-	public void prijaviSeZaTuru(Tura tura) {
-		
+	public void rezervisiTuru(Rezervacija rezervacija) {
+		rezervacije.add(rezervacija);
     }
 	public void postaviKomentar(Tura tura, String kom) {
 

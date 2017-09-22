@@ -16,7 +16,7 @@ import model.Tura;
 public class TuraGui extends JPanel {
 
 	ImageIcon slika;
-    JButton button;
+    JButton open;
     JTextArea opis;
     JButton change;
     JButton delete;
@@ -39,7 +39,7 @@ public class TuraGui extends JPanel {
 		Image img = slika.getImage() ;  
 		Image newimg = img.getScaledInstance( 200, 150,  java.awt.Image.SCALE_SMOOTH ) ;  
 		slika = new ImageIcon( newimg );
-	    button = new JButton(slika);
+	    open = new JButton(slika);
 	    opis = new JTextArea();
 	    opis.setMaximumSize(new Dimension(600,150));
 	    opis.setLineWrap(true);
@@ -47,7 +47,7 @@ public class TuraGui extends JPanel {
 	    opis.setFont(new Font("Default", 0, 14));
 	    opis.setText("Naziv: " + t.getNaziv() + "\n\nMesto: " + t.getGrad() + "\n\nVodic: "+ t.getVodic().getIme() + " " + t.getVodic().getPrezime() +"\n\nOpis: " + t.getOpis()); //t.getOpis()
 
-	    this.add(button);
+	    this.add(open);
 	    this.add(Box.createRigidArea(new Dimension(30,0)));
 	    this.add(opis);
 	    
@@ -67,6 +67,13 @@ public class TuraGui extends JPanel {
 			//this.add(Box.createRigidArea(new Dimension(30,0)));
 			this.add(panel);
 		}
+	}
+	
+	public JButton getOpen(){
+		return open;
+	}
+	public void setOpen(JButton open){
+		this.open = open;
 	}
 	public JButton getChange() {
 		return change;

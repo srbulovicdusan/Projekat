@@ -24,7 +24,8 @@ public class MainWindow extends JFrame {
 
 	private JToolBar toolbar;
 	private ProfilPanel profilePanel;
-
+	private TuraPanel MyToursPanel;
+	private KonkretneTurePanel MyReservationsPanel;
 	
 	private FilterPanel filterPanel;
 
@@ -35,13 +36,15 @@ public class MainWindow extends JFrame {
 	private Korisnik trenutniKorisnik;
 	
 	private JTabbedPane tabbedPane;
+	
+	
 	public JTabbedPane getTabbedPane() {
 		return tabbedPane;
 	}
 	public void setTabbedPane(JTabbedPane tabbedPane) {
 		this.tabbedPane = tabbedPane;
 	}
-	private TuraPanel MyToursPanel;
+	
 
 	public JScrollPane getScrollPanel() {
 		return scrollPanel;
@@ -162,6 +165,12 @@ public class MainWindow extends JFrame {
 	}
 	public void setMyToursPanel(TuraPanel myToursPanel) {
 		MyToursPanel = myToursPanel;
+	}
+	public KonkretneTurePanel getMyReservationsPanel() {
+		return MyReservationsPanel;
+	}
+	public void setMyReservationsPanel(KonkretneTurePanel myReservationsPanel) {
+		MyReservationsPanel = myReservationsPanel;
 	}
 
 

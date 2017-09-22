@@ -10,10 +10,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import model.KonkretnaTura;
-import model.Tura;
 
 public class KonkretneTurePanel extends JPanel {
 
+	private ArrayList<KonkretnaTuraGui> konkretneTureGui = new ArrayList<KonkretnaTuraGui>();
+	
 	public KonkretneTurePanel(ArrayList<KonkretnaTura> ture){ //arg ArrayList<Tura>
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBorder(BorderFactory.createEmptyBorder(50, 20, 0, 0));
@@ -25,14 +26,18 @@ public class KonkretneTurePanel extends JPanel {
 	
 	public void addTura(ArrayList<KonkretnaTura> ture){ // arg ArrayList<Tura>
 
-		/* Kada budu bile napravljene ture, samo ova for petlja ce stojati
+		// Kada budu bile napravljene ture, samo ova for petlja ce stojati
 		for(KonkretnaTura t : ture){
 			
 			KonkretnaTuraGui turaGui = new KonkretnaTuraGui(t);
 			this.add(turaGui);
 		    this.add(Box.createRigidArea(new Dimension(0,100)));
+		    this.konkretneTureGui.add(turaGui);
 		}
-		*/
+		
+		
+		
+		/*
 		KonkretnaTura t = new KonkretnaTura();
 		KonkretnaTuraGui turaGui = new KonkretnaTuraGui(t);
 	    this.add(turaGui);   
@@ -57,5 +62,14 @@ public class KonkretneTurePanel extends JPanel {
 		KonkretnaTuraGui turaGui5 = new KonkretnaTuraGui(t5);
 	    this.add(turaGui5);   
 	    this.add(Box.createRigidArea(new Dimension(0,100)));
+	    */
+	}
+
+	public ArrayList<KonkretnaTuraGui> getKonkretneTureGui() {
+		return konkretneTureGui;
+	}
+
+	public void setKonkretneTureGui(ArrayList<KonkretnaTuraGui> konkretneTureGui) {
+		this.konkretneTureGui = konkretneTureGui;
 	}
 }

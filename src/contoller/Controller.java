@@ -2,6 +2,7 @@ package contoller;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -9,10 +10,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.ListIterator;
 
 import javax.imageio.ImageIO;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
@@ -23,10 +24,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Application;
 import model.KonkretnaTura;
 import model.Korisnik;
+import model.Rezervacija;
 import model.Tura;
 import model.Turista;
 import model.Vodic;
 import view.ChangeProfileGui;
+import view.KonkretnaTuraGui;
+import view.KonkretneTurePanel;
 import view.KreiranjeKonkretneTureGui;
 import view.KreiranjeOpsteTureGui;
 import view.LogIn;
@@ -54,7 +58,103 @@ public class Controller {
 		mainWindow.addLoginListener(new LoginListener());
 		mainWindow.addSignListener(new SignUpListener());
 		mainWindow.getFilterPanel().addPretraziListener(new FilterSearchButton());
+		this.addListenerToGeneralTours();
 
+	}
+	
+	//Dodavanje OpenGeneralTourListener TuraGui-ju
+	public void addListenerToGeneralTours(){
+		for(Component opstaTuraGui : mainWindow.getTuraPanel().getComponents()) {
+			if(opstaTuraGui instanceof TuraGui){
+				((TuraGui) opstaTuraGui).getOpen().addActionListener(new OpenGeneralTourListener());
+			}
+		}
+	}
+	
+	class OpenGeneralTourListener implements ActionListener{
+		private TuraGui turaGui;
+		private Tura tura;
+		
+		public OpenGeneralTourListener(){
+		}
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			JButton button = (JButton)arg0.getSource();
+			turaGui = (TuraGui) button.getParent();
+			tura = turaGui.getTura();
+			KonkretneTurePanel kTurePanel = new KonkretneTurePanel(tura.getKonkretneTure());
+			for(KonkretnaTuraGui ktG : kTurePanel.getKonkretneTureGui()){
+				ktG.addReservationListener(new reserveSpecTour());
+			}
+			
+			JScrollPane scrollPane = new JScrollPane(kTurePanel);
+			mainWindow.getTabbedPane().addTab(tura.getNaziv(), scrollPane);
+			
+		}
+		
+	}
+	
+	//Listener za rezervaciju
+	class reserveSpecTour implements ActionListener{
+		private Turista turista;
+		private KonkretnaTuraGui konkretnaTuraGui;
+		private KonkretnaTura konkretnaTura;
+		private Rezervacija rezervacija;
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(mainWindow.getTrenutniKorisnik().getOsoba() instanceof Turista){
+				turista = (Turista) mainWindow.getTrenutniKorisnik().getOsoba();
+				JButton button = (JButton)e.getSource();
+				konkretnaTuraGui = (KonkretnaTuraGui) button.getParent();
+				konkretnaTura = konkretnaTuraGui.getKonkretnaTura();
+				
+				rezervacija = new Rezervacija();
+				rezervacija.setKonkretnaTura(konkretnaTura);
+				rezervacija.setTurista(turista);
+				
+				turista.rezervisiTuru(rezervacija);
+				konkretnaTura.dodajRezervaciju(rezervacija);
+				konkretnaTuraGui.remove(button);
+				//konkretnaTuraGui.addCancelReservetionListener(new CancelReservationListener());
+				mainWindow.getMyReservationsPanel().add(konkretnaTuraGui);
+				mainWindow.getMyReservationsPanel().add(Box.createRigidArea(new Dimension(0,100)));
+				
+				
+			}
+			
+		}
+		
+	}
+	
+	class CancelReservationListener implements ActionListener{
+		private Turista turista;
+		private KonkretnaTuraGui konkretnaTuraGui;
+		private KonkretnaTura konkretnaTura;
+		private Rezervacija rezervacija;
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(mainWindow.getTrenutniKorisnik().getOsoba() instanceof Turista){
+				turista = (Turista) mainWindow.getTrenutniKorisnik().getOsoba();
+				JButton button = (JButton)e.getSource();
+				konkretnaTuraGui = (KonkretnaTuraGui) button.getParent();
+				konkretnaTura = konkretnaTuraGui.getKonkretnaTura();
+				
+				for(Rezervacija rez : turista.getRezervacije()){
+					if(rez.getKonkretnaTura().equals(konkretnaTura)){
+						rezervacija = rez;
+					}
+				}
+				turista.getRezervacije().remove(rezervacija);
+				konkretnaTura.getRezervacije().remove(rezervacija);
+				
+				mainWindow.getMyReservationsPanel().remove(konkretnaTuraGui);
+				
+				
+			}
+		}
+		
 	}
 	
 	class LoginListener implements ActionListener{
@@ -92,8 +192,7 @@ public class Controller {
 							mainWindow.getMyToursPanel().addGuideButtons();
 							mainWindow.getMyToursPanel().addGuideListeners(new ChangeTourListener(),new DeleteTourListener());
 						}else{
-							//profilPanelTurista
-							
+							loadTouristReservations();	
 						}
 
 						SwingUtilities.updateComponentTreeUI(mainWindow);
@@ -418,6 +517,21 @@ public class Controller {
 		mainWindow.getMyToursPanel().addGuideButtons();
 		mainWindow.getMyToursPanel().addGuideListeners(new ChangeTourListener(), new DeleteTourListener());
 		mainWindow.getTabbedPane().add("MyTours", scrollPane);
+	}
+	
+	//otvaranje rezervacija prilikom logIna
+	public void loadTouristReservations(){
+		ArrayList<KonkretnaTura> konkretneTure = new ArrayList<KonkretnaTura>();
+		Turista turista = ((Turista)mainWindow.getTrenutniKorisnik().getOsoba());
+		
+		for(Rezervacija rez : turista.getRezervacije()){
+			konkretneTure.add(rez.getKonkretnaTura());
+		}
+		
+		KonkretneTurePanel turaPanel = new KonkretneTurePanel(konkretneTure);
+		JScrollPane scrollPane = new JScrollPane(turaPanel);
+		mainWindow.setMyReservationsPanel(turaPanel);
+		mainWindow.getTabbedPane().add("MyReservations", scrollPane);
 	}
 	
 	public class DeleteTourListener implements ActionListener{
