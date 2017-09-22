@@ -142,4 +142,8 @@ public class KreiranjeKonkretneTureGui extends JFrame{
 	public void displayFieldErrorMessage(){	
 		JOptionPane.showMessageDialog(this, "You need to fill all fields");
 	}
+	
+	public void displayDateMessageError(){
+		JOptionPane.showMessageDialog(this, "Incorrect date. Try again.");
+	}
 }

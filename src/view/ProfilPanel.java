@@ -23,6 +23,7 @@ public class ProfilPanel extends JPanel{
 		BufferedImage slika;
 		JTextArea opis;
 		JButton changeProfile;
+		JButton logOutBtn;
 		
 	public ProfilPanel(Korisnik k){//arg Korisnik k
 
@@ -45,12 +46,16 @@ public class ProfilPanel extends JPanel{
 		}
 		slLabel = new JLabel(new ImageIcon(slika));
 		changeProfile = new JButton("Change profile");
+		logOutBtn = new JButton("LogOut");
 	    this.add(slLabel);
 	    this.add(Box.createRigidArea(new Dimension(0,50)));
 	    this.add(imeLabel);
 	    this.add(Box.createRigidArea(new Dimension(0,60)));
 	    this.add(changeProfile);
-	    this.add(Box.createRigidArea(new Dimension(0,90)));
+	    this.add(Box.createRigidArea(new Dimension(0,20)));
+	    this.add(logOutBtn);
+	    this.add(Box.createRigidArea(new Dimension(0,70)));
+	    logOutBtn.setAlignmentX(CENTER_ALIGNMENT);
 	    changeProfile.setAlignmentX(CENTER_ALIGNMENT);
 	    slLabel.setAlignmentX(CENTER_ALIGNMENT);
 	    imeLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -64,5 +69,8 @@ public class ProfilPanel extends JPanel{
 	}
 	public void addChangeButtonListener(ActionListener al){
 		this.changeProfile.addActionListener(al);
+	}
+	public void addLogOutButtonListener(ActionListener al){
+		this.logOutBtn.addActionListener(al);
 	}
 }
