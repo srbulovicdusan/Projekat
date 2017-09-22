@@ -83,13 +83,18 @@ public class Controller {
 			turaGui = (TuraGui) button.getParent();
 			tura = turaGui.getTura();
 			KonkretneTurePanel kTurePanel = new KonkretneTurePanel(tura.getKonkretneTure());
+			kTurePanel.addBackButtonOnTop(tura.getKonkretneTure());
+			kTurePanel.addBackButtonListener(new BackButtonListener());
 			for(KonkretnaTuraGui ktG : kTurePanel.getKonkretneTureGui()){
 				ktG.addReservationListener(new reserveSpecTour());
 			}
 			
 			JScrollPane scrollPane = new JScrollPane(kTurePanel);
-			mainWindow.getTabbedPane().addTab(tura.getNaziv(), scrollPane);
-			
+			//mainWindow.getTabbedPane().addTab(tura.getNaziv(), scrollPane);
+			BorderLayout layout =   (BorderLayout) mainWindow.getContentPane().getLayout();
+			mainWindow.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+			mainWindow.add(scrollPane, BorderLayout.CENTER);
+			SwingUtilities.updateComponentTreeUI(mainWindow);
 		}
 		
 	}
@@ -565,6 +570,18 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	public class BackButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			BorderLayout layout =   (BorderLayout) mainWindow.getContentPane().getLayout();
+			mainWindow.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+			mainWindow.add(mainWindow.getTabbedPane(), BorderLayout.CENTER);
+			SwingUtilities.updateComponentTreeUI(mainWindow);
 			
 		}
 		

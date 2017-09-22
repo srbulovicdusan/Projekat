@@ -2,24 +2,27 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import model.KonkretnaTura;
+import model.Tura;
 
 public class KonkretneTurePanel extends JPanel {
 
 	private ArrayList<KonkretnaTuraGui> konkretneTureGui = new ArrayList<KonkretnaTuraGui>();
-	
+	private JButton backButton;
 	public KonkretneTurePanel(ArrayList<KonkretnaTura> ture){ //arg ArrayList<Tura>
-		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setBorder(BorderFactory.createEmptyBorder(50, 20, 0, 0));
 		this.setBackground(Color.white);
-			    
+
 	    this.addTura(ture);
 		
 	}
@@ -71,5 +74,15 @@ public class KonkretneTurePanel extends JPanel {
 
 	public void setKonkretneTureGui(ArrayList<KonkretnaTuraGui> konkretneTureGui) {
 		this.konkretneTureGui = konkretneTureGui;
+	}
+	public void addBackButtonListener(ActionListener al){
+		backButton.addActionListener(al);
+	}
+	public void addBackButtonOnTop(ArrayList<KonkretnaTura> ture){
+		this.removeAll();
+		this.backButton = new JButton("Back");
+		this.add(backButton);
+		this.add(Box.createRigidArea(new Dimension(0,50)));
+		this.addTura(ture);
 	}
 }
