@@ -12,7 +12,7 @@ public class Tura {
 	private ArrayList<KonkretnaTura> konkretneTure;
 	
 	public Tura(){
-		
+
 	}
 	
 	public Tura(ArrayList<Integer> ocene, String opis, String grad, String naziv, String slika, ArrayList<String> komentari,

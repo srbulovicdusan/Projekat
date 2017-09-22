@@ -390,6 +390,13 @@ public class Controller {
 			endDate = specificTourWindow.getEndDateChooser().getSelectedDate();
 			tura = specificTourWindow.getGenTourComboBox().getSelectedItem().toString();
 		   	
+			
+			while(startDate.after(endDate)){
+				specificTourWindow.displayDateMessageError();
+				return;
+			}
+			
+			
 		    for (Tura t : application.getTure()) {
 		    	if (t.getNaziv().equalsIgnoreCase(tura)) {
 		    		t.addKonkretnaTura(new KonkretnaTura(t,price,startDate,endDate,remark));
