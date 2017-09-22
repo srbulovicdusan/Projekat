@@ -68,49 +68,42 @@ public class MainWindow extends JFrame {
 		int yPos = (dim.height/2) - (this.getHeight()/2);
 		this.setSize(dim.width, dim.height);
 		this.setLocation(0,0);
-		//ovo iznad je isto za centriranje
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Mite");
+		this.tabbedPane = new JTabbedPane();
+		this.addToolBar();
+		this.addFilterPanel();
+		this.addTuraPanel(ture);
+		this.tabbedPane.addTab("All Tours", scrollPanel);
+		this.add(tabbedPane, BorderLayout.CENTER);
+		//creating empty profile panel
+		this.profilePanel = new ProfilPanel();
+		this.add(this.profilePanel, BorderLayout.EAST);
+		this.setVisible(true);
 		
+	}
+	public void addFilterPanel(){
+		filterPanel = new FilterPanel();
+		this.add(filterPanel,BorderLayout.WEST);
+	}
+	public void addToolBar(){
 		toolbar = new JToolBar();
 		toolbar.setRollover(true);
-		
 		logInB = new JButton("LogIn");
 		signUpB = new JButton("SignUp");
 		toolbar.add(logInB);
 		toolbar.add(signUpB);
 		toolbar.addSeparator();
 		this.add(toolbar,BorderLayout.NORTH);
-
-		
-		this.addFilterPanel();
-		//this.addTuraPanel(ture);
-		turaPanel = new TuraPanel(ture);
-		scrollPanel = new JScrollPane(turaPanel);
-		//this.add(scrollPanel,BorderLayout.CENTER);
-		this.tabbedPane = new JTabbedPane();
-		this.tabbedPane.addTab("All Tours", scrollPanel);
-		this.add(tabbedPane, BorderLayout.CENTER);
-		//creating empty profile panel
-		this.profilePanel = new ProfilPanel();
-		this.add(this.profilePanel, BorderLayout.EAST);
-		
-		
-		this.setVisible(true);
-		
-	}
-	public void addFilterPanel(){
-		
-		filterPanel = new FilterPanel();
-		this.add(filterPanel,BorderLayout.WEST);
-		
 	}
 	
 	public void addTuraPanel(ArrayList<Tura> ture){ //arg ArrayList<Tura>
 		turaPanel = new TuraPanel(ture);
 		scrollPanel = new JScrollPane(turaPanel);
+		scrollPanel.setName("All Tours");
+		this.tabbedPane.add(scrollPanel, 0);
 		//this.add(scrollPanel,BorderLayout.CENTER);
 		//this.add(turaPanel, BorderLayout.CENTER);
 		
@@ -122,8 +115,8 @@ public class MainWindow extends JFrame {
 	
 	
 	public void setTuraPanel(ArrayList<Tura> p_ture) {
-		this.remove(turaPanel);
-		this.remove(scrollPanel);
+		//this.tabbedPane.remove(turaPanel);
+		this.tabbedPane.remove(scrollPanel);
 		this.addTuraPanel(p_ture);
 	}
 	
@@ -150,12 +143,13 @@ public class MainWindow extends JFrame {
 	public void addSignListener(ActionListener al){
 		this.signUpB.addActionListener(al);
 	}
-	public Korisnik getTrenutniKorisnik() {
+	/*public Korisnik getTrenutniKorisnik() {
 		return trenutniKorisnik;
 	}
 	public void setTrenutniKorisnik(Korisnik trenutniKorisnik) {
 		this.trenutniKorisnik = trenutniKorisnik;
 	}
+	*/
 	
 	public FilterPanel getFilterPanel() {
 		return filterPanel;

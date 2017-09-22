@@ -103,8 +103,8 @@ public class Controller {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(mainWindow.getTrenutniKorisnik().getOsoba() instanceof Turista){
-				turista = (Turista) mainWindow.getTrenutniKorisnik().getOsoba();
+			if(application.getUlogovanKorisnik().getOsoba() instanceof Turista){
+				turista = (Turista) application.getUlogovanKorisnik().getOsoba();
 				JButton button = (JButton)e.getSource();
 				konkretnaTuraGui = (KonkretnaTuraGui) button.getParent();
 				konkretnaTura = konkretnaTuraGui.getKonkretnaTura();
@@ -135,8 +135,8 @@ public class Controller {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(mainWindow.getTrenutniKorisnik().getOsoba() instanceof Turista){
-				turista = (Turista) mainWindow.getTrenutniKorisnik().getOsoba();
+			if(application.getUlogovanKorisnik().getOsoba() instanceof Turista){
+				turista = (Turista) application.getUlogovanKorisnik().getOsoba();
 				JButton button = (JButton)e.getSource();
 				konkretnaTuraGui = (KonkretnaTuraGui) button.getParent();
 				konkretnaTura = konkretnaTuraGui.getKonkretnaTura();
@@ -182,15 +182,14 @@ public class Controller {
 			if (application.getKorisnici() != null) {
 				for (Korisnik k: application.getKorisnici()){
 					if (k.getKorisnickoIme().compareTo(logIn.getUserNameText()) == 0 && k.getLozinka().compareTo(logIn.getPassword()) == 0){
-						mainWindow.setTrenutniKorisnik(k);
+						application.setUlogovanKorisnik(k);
 						mainWindow.addProfilePanel(k);
 						mainWindow.getProfilePanel().addChangeButtonListener(new ChangeProfileListener());// dodaj listener za dugme "change profile"
 						if (mainWindow.getProfilePanel() instanceof ProfilPanelVodic){
 							((ProfilPanelVodic)mainWindow.getProfilePanel()).addCreateGenTourButtonListener(new CreateGeneralTourListener());
 							((ProfilPanelVodic)mainWindow.getProfilePanel()).addCreateSpecTourButtonListener(new CreateSpecificTourListener());
+
 							loadGuideTours();
-							mainWindow.getMyToursPanel().addGuideButtons();
-							mainWindow.getMyToursPanel().addGuideListeners(new ChangeTourListener(),new DeleteTourListener());
 						}else{
 							loadTouristReservations();	
 						}
@@ -240,7 +239,7 @@ public class Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			changeProfileGui = new ChangeProfileGui(mainWindow.getTrenutniKorisnik());
+			changeProfileGui = new ChangeProfileGui(application.getUlogovanKorisnik());
 			changeProfileGui.addOkButtonListener(new OkButtonChangeListener());
 			changeProfileGui.addChangeButtonListener(new ChangeButtonListener());
 		}
@@ -256,21 +255,21 @@ public class Controller {
 				changeProfileGui.displayFieldErrorMessage();
 				return;
 			}
-			System.out.println(mainWindow.getTrenutniKorisnik().getKorisnickoIme());
+			System.out.println(application.getUlogovanKorisnik().getKorisnickoIme());
 			System.out.println(changeProfileGui.getUserNameField().getText());
-			if (mainWindow.getTrenutniKorisnik().getKorisnickoIme().compareTo(changeProfileGui.getUserNameField().getText()) != 0){ 
+			if (application.getUlogovanKorisnik().getKorisnickoIme().compareTo(changeProfileGui.getUserNameField().getText()) != 0){ 
 				if (application.checkIfKorisnikExists(changeProfileGui.getUserNameField().getText())){
 					changeProfileGui.displayUserErrorMessage();
 					return;
 				}
 			}
-			mainWindow.getTrenutniKorisnik().setKorisnickoIme(changeProfileGui.getUserNameField().getText());
-			mainWindow.getTrenutniKorisnik().setEmail(changeProfileGui.getEmailField().getText());
-			mainWindow.getTrenutniKorisnik().setLozinka(changeProfileGui.getPasswordField().getText());
-			mainWindow.getTrenutniKorisnik().getOsoba().setIme(changeProfileGui.getNameField().getText());
-			mainWindow.getTrenutniKorisnik().getOsoba().setPrezime(changeProfileGui.getLastNameField().getText());
+			application.getUlogovanKorisnik().setKorisnickoIme(changeProfileGui.getUserNameField().getText());
+			application.getUlogovanKorisnik().setEmail(changeProfileGui.getEmailField().getText());
+			application.getUlogovanKorisnik().setLozinka(changeProfileGui.getPasswordField().getText());
+			application.getUlogovanKorisnik().getOsoba().setIme(changeProfileGui.getNameField().getText());
+			application.getUlogovanKorisnik().getOsoba().setPrezime(changeProfileGui.getLastNameField().getText());
 			mainWindow.remove(mainWindow.getProfilePanel());
-			mainWindow.setProfilePanel(new ProfilPanel(mainWindow.getTrenutniKorisnik()));
+			mainWindow.setProfilePanel(new ProfilPanel(application.getUlogovanKorisnik()));
 			mainWindow.getProfilePanel().addChangeButtonListener(new ChangeProfileListener());// dodaj listener za dugme "change profile"
 			mainWindow.add(mainWindow.getProfilePanel(), BorderLayout.EAST);
 			SwingUtilities.updateComponentTreeUI(mainWindow.getProfilePanel());
@@ -296,7 +295,7 @@ public class Controller {
                 	if (!dest.exists()){
                 		Files.copy(file.toPath(), dest.toPath());
                 	}
-					mainWindow.getTrenutniKorisnik().setSlika("res/" + file.getName());
+                	application.getUlogovanKorisnik().setSlika("res/" + file.getName());
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -305,7 +304,7 @@ public class Controller {
             }
             //refresuj sliku
             
-            changeProfileGui.changeImage(mainWindow.getTrenutniKorisnik());
+            changeProfileGui.changeImage(application.getUlogovanKorisnik());
 			SwingUtilities.updateComponentTreeUI(changeProfileGui);
         }
 	}
@@ -341,7 +340,7 @@ public class Controller {
 						generalTourWindow.getNameField().getText(), generalTourWindow.getTura().getSlika(),
 						new ArrayList<String>(), new ArrayList<KonkretnaTura>());
 				generalTourWindow.setTura(tura);
-				Vodic v  = (Vodic) mainWindow.getTrenutniKorisnik().getOsoba();
+				Vodic v  = (Vodic) application.getUlogovanKorisnik().getOsoba();
 				v.addTour(tura);
 				tura.setVodic(v);
 				application.addTour(tura);
@@ -504,6 +503,7 @@ public class Controller {
 			}
 			
 			mainWindow.setTuraPanel(searchResults);
+			mainWindow.getTabbedPane().setSelectedIndex(0);
 			SwingUtilities.updateComponentTreeUI(mainWindow);
 			
 		}
@@ -511,18 +511,22 @@ public class Controller {
 		
 	}
 	public void loadGuideTours(){
-		TuraPanel turaPanel = new TuraPanel(((Vodic)mainWindow.getTrenutniKorisnik().getOsoba()).getTure());
+		TuraPanel turaPanel = new TuraPanel(((Vodic)application.getUlogovanKorisnik().getOsoba()).getTure());
 		JScrollPane scrollPane = new JScrollPane(turaPanel);
+		mainWindow.getTabbedPane().removeAll();
+		mainWindow.getTabbedPane().add("All Tours", mainWindow.getScrollPanel());
 		mainWindow.setMyToursPanel(turaPanel);
 		mainWindow.getMyToursPanel().addGuideButtons();
 		mainWindow.getMyToursPanel().addGuideListeners(new ChangeTourListener(), new DeleteTourListener());
-		mainWindow.getTabbedPane().add("MyTours", scrollPane);
+		//mainWindow.getTabbedPane().addTab("MyTours", scrollPane);
+		mainWindow.getTabbedPane().add("My Tours", scrollPane);
+		//SwingUtilities.updateComponentTreeUI(mainWindow.getMyToursPanel());
 	}
 	
 	//otvaranje rezervacija prilikom logIna
 	public void loadTouristReservations(){
 		ArrayList<KonkretnaTura> konkretneTure = new ArrayList<KonkretnaTura>();
-		Turista turista = ((Turista)mainWindow.getTrenutniKorisnik().getOsoba());
+		Turista turista = ((Turista)application.getUlogovanKorisnik().getOsoba());
 		
 		for(Rezervacija rez : turista.getRezervacije()){
 			konkretneTure.add(rez.getKonkretnaTura());
@@ -540,31 +544,21 @@ public class Controller {
 		public void actionPerformed(ActionEvent actionEvent) {
 			for (Component tura: mainWindow.getMyToursPanel().getComponents()){
 				if (tura instanceof TuraGui){
-					if (((TuraGui) tura).getDelete() == (JButton)actionEvent.getSource()){
-						
+					if (((TuraGui) tura).getDelete() == (JButton)actionEvent.getSource()){	
 						application.removeTour(((TuraGui) tura).getTura());
-						((Vodic)mainWindow.getTrenutniKorisnik().getOsoba()).removeTour(((TuraGui) tura).getTura());
+						((Vodic)application.getUlogovanKorisnik().getOsoba()).removeTour(((TuraGui) tura).getTura());
 						mainWindow.setTuraPanel(application.getTure());
 						mainWindow.getTabbedPane().removeAll();
 						mainWindow.getTabbedPane().add("All Tours", new JScrollPane(mainWindow.getTuraPanel()));
 						loadGuideTours();
 						mainWindow.getTabbedPane().setSelectedIndex(1);
-						//mainWindow.remove(mainWindow.getTuraPanel());
-						//mainWindow.addTuraPanel(application.getTure());
-						
-						
-						
-						
-						System.out.println("aa");
 					}
 				}
 			}
 			SwingUtilities.updateComponentTreeUI(mainWindow.getMyToursPanel());
 			SwingUtilities.updateComponentTreeUI(mainWindow.getTuraPanel());
 			SwingUtilities.updateComponentTreeUI(mainWindow.getScrollPanel());
-		}
-		
-		
+		}	
 	}
 	public class ChangeTourListener implements ActionListener{
 

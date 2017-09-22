@@ -5,7 +5,7 @@ public class Application {
 	private ArrayList<Korisnik> korisnici;
 	private ArrayList<Osoba> osobe;
 	private ArrayList<Tura> ture;
-	
+	private Korisnik ulogovanKorisnik;
 
 	public Application(){
 		korisnici = new ArrayList<Korisnik>();
@@ -56,6 +56,12 @@ public class Application {
 			}
 		}
 		return false;
+	}
+	public Korisnik getUlogovanKorisnik() {
+		return ulogovanKorisnik;
+	}
+	public void setUlogovanKorisnik(Korisnik ulogovanKorisnik) {
+		this.ulogovanKorisnik = ulogovanKorisnik;
 	}
 	
 }
