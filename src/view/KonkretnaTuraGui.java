@@ -57,9 +57,9 @@ public class KonkretnaTuraGui extends JPanel {
 	    
 	    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	    
-	    Calendar c = konkretnaTura.getDatumPocetka().getInstance();
+	    Calendar c = konkretnaTura.getDatumPocetka();
 	    Date datPoc = c.getTime();
-	    c = konkretnaTura.getDatumZavrsetka().getInstance();
+	    c = konkretnaTura.getDatumZavrsetka();
 	    Date datZavrs = c.getTime();
 	    
 	    opis.setText("\nDate: " + formatter.format(datPoc) + "  -  " + formatter.format(datZavrs) 
