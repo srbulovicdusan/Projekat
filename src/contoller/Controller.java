@@ -88,9 +88,15 @@ public class Controller {
 			KonkretneTurePanel kTurePanel = new KonkretneTurePanel(tura.getKonkretneTure());
 			kTurePanel.addBackButtonOnTop(tura.getKonkretneTure());
 			kTurePanel.addBackButtonListener(new BackButtonListener());
-			for(KonkretnaTuraGui ktG : kTurePanel.getKonkretneTureGui()){
-				ktG.addReservationListener(new reserveSpecTour());
+			
+			if (application.getUlogovanKorisnik() != null && 
+				application.getUlogovanKorisnik().getOsoba() instanceof Turista) {
+				
+				for(KonkretnaTuraGui ktG : kTurePanel.getKonkretneTureGui()){
+					ktG.addReservationListener(new reserveSpecTour());
+				}
 			}
+			
 			
 			JScrollPane scrollPane = new JScrollPane(kTurePanel);
 			//mainWindow.getTabbedPane().addTab(tura.getNaziv(), scrollPane);
@@ -371,9 +377,6 @@ public class Controller {
 				//SwingUtilities.updateComponentTreeUI(mainWindow.getScrollPanel());
 				
 				generalTourWindow.setVisible(false);
-				qw = new QuestionWindow();
-				qw.addYesButtonListener(new CreateYesButtonListener());
-				qw.addNoButtonListener(new CreateNoBtnListener());
 				
 			}
 		}
