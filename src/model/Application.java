@@ -63,5 +63,13 @@ public class Application {
 	public void setUlogovanKorisnik(Korisnik ulogovanKorisnik) {
 		this.ulogovanKorisnik = ulogovanKorisnik;
 	}
+	public boolean checkLogin(String userName, String password){
+		for (Korisnik k : korisnici){
+			if (k.getKorisnickoIme() == userName && k.getLozinka() == password){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 }

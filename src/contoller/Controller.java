@@ -62,6 +62,10 @@ public class Controller {
 
 	}
 	
+	public Controller() {
+		// TODO Auto-generated constructor stub
+	}
+
 	//Dodavanje OpenGeneralTourListener TuraGui-ju
 	public void addListenerToGeneralTours(){
 		for(Component opstaTuraGui : mainWindow.getTuraPanel().getComponents()) {
@@ -407,7 +411,7 @@ public class Controller {
 			tura = specificTourWindow.getGenTourComboBox().getSelectedItem().toString();
 		   	
 			
-			while(startDate.after(endDate)){
+			if(startDate.after(endDate)){
 				specificTourWindow.displayDateMessageError();
 				return;
 			}
@@ -539,6 +543,7 @@ public class Controller {
 			}
 			
 			mainWindow.setTuraPanel(searchResults);
+			addListenerToGeneralTours();
 			mainWindow.getTabbedPane().setSelectedIndex(0);
 			SwingUtilities.updateComponentTreeUI(mainWindow);
 			
@@ -621,6 +626,12 @@ public class Controller {
 			
 		}
 		
+	}
+	public boolean checkDate(Calendar first, Calendar second){
+		if(first.after(second)){
+			return false;
+		}
+		return true;
 	}
 	
 	
