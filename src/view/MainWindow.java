@@ -86,7 +86,7 @@ public class MainWindow extends JFrame {
 		this.addToolBar();
 		this.addFilterPanel();
 		this.addTuraPanel(ture);
-		this.tabbedPane.addTab("All Tours", scrollPanel);
+		//this.tabbedPane.addTab("All Tours", scrollPanel);
 		this.add(tabbedPane, BorderLayout.CENTER);
 		//creating empty profile panel
 		this.profilePanel = new ProfilPanel();
@@ -112,9 +112,8 @@ public class MainWindow extends JFrame {
 	public void addTuraPanel(ArrayList<Tura> ture){ //arg ArrayList<Tura>
 		turaPanel = new TuraPanel(ture);
 		scrollPanel = new JScrollPane(turaPanel);
-		//scrollPanel.setName("All Tours");
-		//this.tabbedPane.add(scrollPanel, 0);
-		//this.add(scrollPanel,BorderLayout.CENTER);
+		scrollPanel.setName("All Tours");
+		this.tabbedPane.add(scrollPanel, 0);
 		//this.add(turaPanel, BorderLayout.CENTER);
 		
 	}
@@ -124,7 +123,7 @@ public class MainWindow extends JFrame {
 	}
 	
 	
-	public void setTuraPanel(ArrayList<Tura> p_ture) {
+	public void setTuraPanel  (ArrayList<Tura> p_ture) {
 		//this.tabbedPane.remove(turaPanel);
 		this.tabbedPane.remove(scrollPanel);
 		this.addTuraPanel(p_ture);
