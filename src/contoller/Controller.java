@@ -21,8 +21,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
-
 import model.Application;
 import model.KonkretnaTura;
 import model.Korisnik;
@@ -30,7 +28,6 @@ import model.Rezervacija;
 import model.Tura;
 import model.Turista;
 import model.Vodic;
-import model.main;
 import view.ChangeProfileGui;
 import view.KonkretnaTuraGui;
 import view.KonkretneTurePanel;
