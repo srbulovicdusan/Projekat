@@ -368,8 +368,8 @@ public class Controller {
 				turaGui2.getOpen().addActionListener(new OpenGeneralTourListener());
 				
 				mainWindow.getTuraPanel().addTuraGui(turaGui);
-				
 				mainWindow.getMyToursPanel().addTuraGui(turaGui2);
+				
 				mainWindow.getMyToursPanel().addGuideButtons();
 				mainWindow.getMyToursPanel().addGuideListeners(new ChangeTourListener(), new DeleteTourListener());
 				

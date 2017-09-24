@@ -45,7 +45,9 @@ public class TuraGui extends JPanel {
 	    opis.setLineWrap(true);
 	    opis.setEditable(false);
 	    opis.setFont(new Font("Default", 0, 14));
-	    opis.setText("Naziv: " + t.getNaziv() + "\n\nMesto: " + t.getGrad() + "\n\nVodic: "+ t.getVodic().getIme() + " " + t.getVodic().getPrezime() +"\n\nOpis: " + t.getOpis()); //t.getOpis()
+	    opis.setText("Tour name: " + t.getNaziv() + "\n\nDestination: " + t.getGrad() + 
+	    		"\n\nTour Guide: "+ t.getVodic().getIme() + " " + t.getVodic().getPrezime() +
+	    		"\n\nDescription: " + t.getOpis());
 
 	    this.add(open);
 	    this.add(Box.createRigidArea(new Dimension(30,0)));
